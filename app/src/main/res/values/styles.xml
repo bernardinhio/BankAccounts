@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- custom Style that allows android:windowIsFloating = true
+   this makes the Activity behave like a popup activity-->
+    <style name="CustomFloatingActivityTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>
