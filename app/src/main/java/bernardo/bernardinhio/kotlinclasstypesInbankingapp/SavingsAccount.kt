@@ -1,25 +1,25 @@
 package bernardo.bernardinhio.kotlinclasstypesInbankingapp
 
-class SavingsAccount : Account{
+class SavingsAccount : Account {
 
     var savingAmount : Double = 0.0
         set(value) {field = if (value <= totalBalance) value else 0.0}
 
-
-    constructor(owner: Owner, savingAmount: Double, type: AccountType, balance: Double, SavingsBalance: Double, checkingBalance: Double) : super() {
+    constructor(owner: Owner, savingAmount: Double, type: AccountType, balance: Double, savingsBalance: Double, checkingBalance: Double) : super() {
         // if owner was initialized already then don't initialize it again
         super.owner = if (super.owner.name.isEmpty())owner else super.owner
         this.savingAmount = if(savingAmount <= balance) savingAmount else 0.0
         this.type = getAccountTypeToSet(type)
         this.totalBalance = balance
-        this.savingsBalance = SavingsBalance
+        this.savingsBalance = savingsBalance
         this.checkingBalance = checkingBalance
     }
 
+    /**
+     * When trying to open a new account type, we have to check
+     */
     private fun getAccountTypeToSet(newType : AccountType) : AccountType{
         var accountType = AccountType.UNDEFINED
-
-        // we can create 3 concrete types of Accounts; Savings // Checking and SavingsAndChecking
         when(newType){
             AccountType.SAVINGS -> {
                 when(super.type){

@@ -15,19 +15,15 @@ abstract class Account{
     abstract var savingsBalance : Double
     abstract var checkingBalance : Double
 
-
     abstract fun addCash(cash : Double)
     abstract fun withdrawCash(cash : Double)
 
     private fun getFormattedTime(timeStamp: Long): String {
         val calendar = Calendar.getInstance(Locale.ENGLISH)
         calendar.timeInMillis = timeStamp
-        return DateFormat.format("'Created: 'EEE dd, MMM yyyy'  /  at: 'HH:mm:ss'/  Zone: 'z", calendar).toString()
+        return DateFormat.format("'Created:' EEE dd, MMM yyyy ' /  at:' HH:mm:ss", calendar).toString()
     }
 }
-
-
-
 
 enum class AccountType(type : String){
     SAVINGS("savings"),

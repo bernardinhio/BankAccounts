@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="bernardo.bernardinhio.kotlinclasstypesInbankingapp.view.MainActivity">
+        <activity
+            android:name="bernardo.bernardinhio.kotlinclasstypesInbankingapp.view.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,14 +20,21 @@
         </activity>
 
         <activity
-            android:name=".view.DashboardActivityClientOne"
+            android:name=".view.DashboardActivityClientSavingsAccount"
             android:theme="@style/CustomFloatingActivityTheme"
             android:parentActivityName=".view.MainActivity">
 
         </activity>
 
         <activity
-            android:name=".view.DashboardActivityClientTwo"
+            android:name=".view.DashboardActivityClientCheckingAccount"
+            android:theme="@style/CustomFloatingActivityTheme"
+            android:parentActivityName=".view.MainActivity">
+
+        </activity>
+
+        <activity
+            android:name=".view.DashboardActivityClientSavingsAndCheckingAccount"
             android:theme="@style/CustomFloatingActivityTheme"
             android:parentActivityName=".view.MainActivity">
 
