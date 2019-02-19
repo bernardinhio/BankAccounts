@@ -1,9 +1,8 @@
-class SavingsAccount(
-        // new fields
-) : Account() {
+class SavingsAccount() : Account() {
 
-    // TODO
-    // make constructor with savingsBalance and yearlyInterestRate
+    constructor(savingsBalance : Double) : this()
+
+    constructor(savingsBalance : Double, yearlyInterestRate : Double) : this()
 
     private var monthlyInterestRate : Double = yearlyInterestRate /12
     private var monthlyBenefit : Double = super.totalBalance * monthlyInterestRate

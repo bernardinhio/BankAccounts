@@ -1,10 +1,8 @@
-class CheckingAccount(
-        // new fields
+class CheckingAccount() : Account() {
 
-) : Account() {
+    constructor(checkingBalance : Double) : this()
 
-    // TODO
-    //make constructor with checkingBalance and overdraftLimit
+    constructor(checkingBalance : Double, overdraftLimit : Double) : this()
 
     init {
         this.type = checkIfTypeNeedsModification()
