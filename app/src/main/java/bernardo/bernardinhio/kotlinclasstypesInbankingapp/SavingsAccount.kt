@@ -1,81 +1,67 @@
-package bernardo.bernardinhio.kotlinclasstypesInbankingapp
+class SavingsAccount(
+        // new fields
+) : Account() {
 
-class SavingsAccount : Account {
+    // TODO
+    // make constructor with savingsBalance and yearlyInterestRate
 
-    var savingAmount : Double = 0.0
-        set(value) {field = if (value <= totalBalance) value else 0.0}
+    private var monthlyInterestRate : Double = yearlyInterestRate /12
+    private var monthlyBenefit : Double = super.totalBalance * monthlyInterestRate
 
-    constructor(owner: Owner, savingAmount: Double, type: AccountType, balance: Double, savingsBalance: Double, checkingBalance: Double) : super() {
-        // if owner was initialized already then don't initialize it again
-        super.owner = if (super.owner.name.isEmpty())owner else super.owner
-        this.savingAmount = if(savingAmount <= balance) savingAmount else 0.0
-        this.type = getAccountTypeToSet(type)
-        this.totalBalance = balance
-        this.savingsBalance = savingsBalance
-        this.checkingBalance = checkingBalance
+    init {
+        super.type = checkIfTypeNeedsModification()
+        super.checkingBalance = super.totalBalance - savingsBalance
     }
 
-    /**
-     * When trying to open a new account type, we have to check
-     */
-    private fun getAccountTypeToSet(newType : AccountType) : AccountType{
-        var accountType = AccountType.UNDEFINED
-        when(newType){
-            AccountType.SAVINGS -> {
-                when(super.type){
-                    AccountType.CHECKING -> accountType = AccountType.SAVINGS_AND_CHECKING
-                    AccountType.UNDEFINED -> accountType = AccountType.SAVINGS
-                }
-            }
-            AccountType.CHECKING -> {
-                when(super.type){
-                    AccountType.SAVINGS -> accountType = AccountType.SAVINGS_AND_CHECKING
-                    AccountType.UNDEFINED -> accountType = AccountType.CHECKING
-                }
-            }
-            AccountType.SAVINGS_AND_CHECKING -> accountType = AccountType.SAVINGS_AND_CHECKING
+    private fun checkIfTypeNeedsModification() : AccountType{
+        val returnedType = when(super.type){
+            AccountType.UNDEFINED -> AccountType.SAVINGS
+            AccountType.CHECKING -> AccountType.SAVINGS_AND_CHECKING
+            AccountType.SAVINGS_AND_CHECKING -> AccountType.SAVINGS_AND_CHECKING
+            AccountType.SAVINGS -> AccountType.SAVINGS
         }
-        return accountType
+        return returnedType
     }
 
-    // static to all SavingsAccount owners
-    companion object {
-        private var annualInterestRate : Double = 3.34
+    override fun getBalance(): Double {
+        return savingsBalance
+    }
 
-        private fun provideInterestToAllUsers(newInterestRate : Double){
-            annualInterestRate = newInterestRate
+    override fun addMoney(amount: Double) {
+        savingsBalance += amount
+        totalBalance += amount
+    }
+
+    override fun withdrawMoney(amount: Double) {
+        if (amount <= savingsBalance){
+            savingsBalance -= amount
+            totalBalance -= amount
+        } else{
+            println("You can't withdraw $amount, it's more than your entire savings: $savingsBalance !")
+            println("Do you want to withdraw from your Checking balance? sure? You have there: $checkingBalance !")
+            if (confirmWithdrawFromSavingsAccount()){
+                withdrawFromCheckingAccount(amount)
+            }
         }
     }
 
-    val monthlyInterest: Double
-        get() = totalBalance * (annualInterestRate / 12)
-
-
-
-
-    // we can set the totalBalance of the SavingAccount from the original account
-    override var totalBalance : Double
-        get() = savingAmount
-        set(value) {
-            // TODO here
-            field = value
-            checkingBalance = value - savingAmount}
-
-    override var savingsBalance: Double
-        get() = savingAmount
-        set(value) { field = value - savingAmount}
-
-    override var checkingBalance: Double
-        get() = totalBalance - savingsBalance
-        set(value) {field = totalBalance - savingsBalance}
-
-
-    override fun addCash(cash: Double) {
-        totalBalance += cash
+    private fun confirmWithdrawFromSavingsAccount() : Boolean{
+        val confirmed : Boolean = true
+        return confirmed
     }
 
-    override fun withdrawCash(cash: Double) {
-        // we can't withdraw from the savingAmount only from the remaining
-        if (cash <= totalBalance - savingAmount) totalBalance -= cash
+    private fun withdrawFromCheckingAccount(amount: Double) {
+        if (amount <= checkingBalance + overdraftLimit){
+            checkingBalance -= amount
+            totalBalance -= amount
+        } else println("Sorry, your checking-balance $checkingBalance aren't enough for withdrawing $amount")
+    }
+
+
+    fun convertToCheckingAccount(amount : Double){
+        if (amount <= savingsBalance){
+            savingsBalance -= amount
+            checkingBalance += amount
+        } else println("Sorry, you can't convert $amount from Savings to checking-account, it's more than you actually have only: $savingsBalance")
     }
 }

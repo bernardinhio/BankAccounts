@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/rectangle_light_blue_inside_border_black">
+    android:background="@drawable/rectangle_light_blue_inside_border_black"
+    android:id="@+id/cl_container_activity_dashboard_bank">
     <TextView
         android:id="@+id/close"
         android:text="X"
@@ -11,10 +13,16 @@
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:onClick="closeActivityBank"
-        android:background="@drawable/circle_button_red_inside_border_black"
-        android:layout_margin="10sp"
+        android:background="@drawable/rectangle_button_red_inside_border_black"
+        android:layout_margin="5sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+    <TextView
+        android:id="@+id/label_change_interest_rate"
+        android:text="label change interest rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/close"/>
 </android.support.constraint.ConstraintLayout>

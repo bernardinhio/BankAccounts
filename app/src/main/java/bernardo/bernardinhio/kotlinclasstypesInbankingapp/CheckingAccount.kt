@@ -1,36 +1,64 @@
-package bernardo.bernardinhio.kotlinclasstypesInbankingapp
+class CheckingAccount(
+        // new fields
 
-class CheckingAccount : Account() {
+) : Account() {
 
-    // our Overdraft Limit is the maximum amount that your bank is prepared for you to borrow from your current account.
-    var overdraftLimit : Double = 1000.0
+    // TODO
+    //make constructor with checkingBalance and overdraftLimit
 
-    private fun transferMoney(money : Double, receiverCheckingAccount : CheckingAccount){
-        receiverCheckingAccount.receivedMoney(money, this)
+    init {
+        this.type = checkIfTypeNeedsModification()
     }
 
-    private fun receivedMoney(money : Double, senderCheckingAccount : CheckingAccount){
-        checkingBalance += money
+    private fun checkIfTypeNeedsModification() : AccountType{
+        val returnedType = when(super.type){
+            AccountType.UNDEFINED -> AccountType.CHECKING
+            AccountType.SAVINGS -> AccountType.SAVINGS_AND_CHECKING
+            AccountType.SAVINGS_AND_CHECKING -> AccountType.SAVINGS_AND_CHECKING
+            AccountType.CHECKING -> AccountType.CHECKING
+        }
+        return returnedType
     }
 
-
-    override var totalBalance: Double
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
-    override var savingsBalance: Double
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
-    override var checkingBalance: Double
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
-
-    override fun addCash(cash: Double) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getBalance(): Double {
+        return checkingBalance
     }
 
-    override fun withdrawCash(cash: Double) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun addMoney(amount: Double) {
+        checkingBalance += amount
+        totalBalance += amount
     }
 
+    override fun withdrawMoney(amount: Double) {
+        if (amount <= checkingBalance + overdraftLimit){
+            checkingBalance -= amount
+            totalBalance -= amount
+        } else {
+            println("You can't withdraw $amount, it's more than you are allowed: your overdraft limit is $overdraftLimit and your checking balance is $checkingBalance you can maximum withdraw ${checkingBalance + overdraftLimit} !!")
+            println("Do you want to withdraw from your Savings? You can't get interest on them later, sure?")
+            if (confirmWithdrawFromSavingsAccount()){
+                withdrawFromSavingsAccount(amount)
+            } else println("Then you don't want to withdraw from your savings")
+        }
+    }
+
+    private fun confirmWithdrawFromSavingsAccount() : Boolean{
+        val confirmed : Boolean = true
+        return confirmed
+    }
+
+    private fun withdrawFromSavingsAccount(amount: Double){
+        if (amount <= savingsBalance){
+            savingsBalance -= amount
+            totalBalance -= amount
+        } else println("Sorry, your savings $savingsBalance aren't enough for withdrawing $amount")
+    }
+
+    fun convertToSavingsAccount(amount : Double){
+        if (amount <= checkingBalance){
+            checkingBalance -= amount
+            savingsBalance += amount
+        } else println("Sorry, you can't convert $amount from Checking-account to Saving-account, it's more than you actually have only: $checkingBalance")
+    }
 
 }

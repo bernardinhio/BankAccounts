@@ -13,7 +13,4 @@ class DashboardActivityClientCheckingAccount : Activity() {
         setContentView(R.layout.dashboard_activity_client_checking_account)
     }
 
-    fun closeActivityBank(view : View){
-        this.finish()
-    }
 }
