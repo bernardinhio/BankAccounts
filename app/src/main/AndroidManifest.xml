@@ -46,6 +46,7 @@
             android:parentActivityName=".view.MainActivity">
 
         </activity>
+        <activity android:name=".view.DashboardActivity" />
 
     </application>
 

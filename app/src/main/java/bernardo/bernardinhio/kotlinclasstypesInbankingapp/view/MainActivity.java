@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R;
+import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.Account;
+import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.Owner;
 
 public class MainActivity extends AppCompatActivity {
 

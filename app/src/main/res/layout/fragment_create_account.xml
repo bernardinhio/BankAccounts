@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:id="@+id/tv_label_enter_account_type"
+        android:text="Check account type (can be both)"
+        android:textSize="15sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#000000"
+        android:textStyle="italic"
+        android:layout_marginTop="5sp"
+        android:layout_marginLeft="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <RadioGroup
+        android:id="@+id/rg_account_type"
+        android:textAlignment="textEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_label_enter_account_type"
+        app:layout_constraintLeft_toLeftOf="parent">
+        <RadioButton
+            android:id="@+id/rb_type_checking"
+            android:text="Checking Account"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="#000000"
+            android:layout_marginTop="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"/>
+        <RadioButton
+            android:id="@+id/rb_type_savings"
+            android:text="Savings Account"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="#000000"
+            android:layout_marginTop="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/rb_type_checking_and_savings"
+            android:text="Both"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="#000000"
+            android:layout_marginTop="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
+    <EditText
+        android:id="@+id/et_checking_balance"
+        android:hint="Checking balance..."
+        android:textColorHint="#000000"
+        android:inputType="numberDecimal"
+        android:textSize="15sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#000000"
+        android:layout_marginTop="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rg_account_type"/>
+    <EditText
+        android:id="@+id/et_overdraft_limit"
+        android:hint="Overdraft limit..."
+        android:textColorHint="#000000"
+        android:inputType="numberDecimal"
+        android:textSize="15sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#000000"
+        android:layout_marginTop="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/et_overdraft_limit"/>
+    <EditText
+        android:id="@+id/et_savings_balance"
+        android:hint="Savings balance..."
+        android:textColorHint="#000000"
+        android:inputType="numberDecimal"
+        android:textSize="15sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#000000"
+        android:layout_marginTop="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/et_checking_balance"/>
+    <EditText
+        android:id="@+id/et_yearly_interest_rate"
+        android:hint="Yearly interest rate..."
+        android:inputType="numberDecimal"
+        android:textColorHint="#000000"
+        android:textSize="15sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#000000"
+        android:layout_marginTop="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/et_savings_balance"/>
+    <Button
+        android:id="@+id/save_account_and_create_client"
+        android:text="Save Account and create client"
+        android:onClick="createClient"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:fontFamily="sans-serif-condensed"
+        android:drawableLeft="@drawable/outline_add_circle_outline_black_18dp"
+        android:paddingLeft="10sp"
+        android:layout_marginRight="2sp"
+        android:textAllCaps="false"
+        android:background="@drawable/rectangle_white_inside_border_black"
+        android:layout_marginTop="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/et_yearly_interest_rate"/>
+
+</android.support.constraint.ConstraintLayout>

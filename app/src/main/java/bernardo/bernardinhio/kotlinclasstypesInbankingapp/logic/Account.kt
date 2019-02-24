@@ -8,7 +8,7 @@ abstract class Account(
         var totalBalance : Double = 0.toDouble(),
         var savingsBalance : Double = 0.toDouble(),
         var yearlyInterestRate : Double = 3.32,
-        var checkingBalance : Double = totalBalance,
+        var checkingBalance : Double = 0.toDouble(),
         var overdraftLimit : Double = 1000.0
 ) {
 
