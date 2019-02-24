@@ -1,3 +1,5 @@
+package bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic
+
 class SavingsAccount() : Account() {
 
     constructor(savingsBalance : Double) : this()
@@ -12,7 +14,7 @@ class SavingsAccount() : Account() {
         super.checkingBalance = super.totalBalance - savingsBalance
     }
 
-    private fun checkIfTypeNeedsModification() : AccountType{
+    private fun checkIfTypeNeedsModification() : AccountType {
         val returnedType = when(super.type){
             AccountType.UNDEFINED -> AccountType.SAVINGS
             AccountType.CHECKING -> AccountType.SAVINGS_AND_CHECKING
@@ -63,4 +65,6 @@ class SavingsAccount() : Account() {
             checkingBalance += amount
         } else println("Sorry, you can't convert $amount from Savings to checking-account, it's more than you actually have only: $savingsBalance")
     }
+
+
 }

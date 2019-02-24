@@ -1,3 +1,5 @@
+package bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic
+
 class CheckingAccount() : Account() {
 
     constructor(checkingBalance : Double) : this()
@@ -8,7 +10,7 @@ class CheckingAccount() : Account() {
         this.type = checkIfTypeNeedsModification()
     }
 
-    private fun checkIfTypeNeedsModification() : AccountType{
+    private fun checkIfTypeNeedsModification() : AccountType {
         val returnedType = when(super.type){
             AccountType.UNDEFINED -> AccountType.CHECKING
             AccountType.SAVINGS -> AccountType.SAVINGS_AND_CHECKING

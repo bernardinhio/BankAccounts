@@ -1,16 +1,16 @@
+package bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic
+
 abstract class Account(
+        val id : Long = System.currentTimeMillis() - "account".length,
+        val dateCreated : String = getFormattedTime(System.currentTimeMillis()),
         var type : AccountType = AccountType.UNDEFINED,
+        var owner : Owner = Owner(),
         var totalBalance : Double = 0.toDouble(),
         var savingsBalance : Double = 0.toDouble(),
         var yearlyInterestRate : Double = 3.32,
         var checkingBalance : Double = totalBalance,
         var overdraftLimit : Double = 1000.0
 ) {
-
-    val id : Long = System.currentTimeMillis()
-    val dateCreated : String = getFormattedTime(System.currentTimeMillis())
-    val name: String = ""
-
 
     companion object {
 
