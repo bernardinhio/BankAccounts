@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="three_clients">
+        <item>Client with Checking Account</item>
+        <item>Client with Savings Account</item>
+        <item>Client with Checking and Savings Account</item>
+    </string-array>
+</resources>
