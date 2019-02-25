@@ -13,8 +13,8 @@ class CheckingAccount() : Account() {
     private fun checkIfTypeNeedsModification() : AccountType {
         val returnedType = when(super.type){
             AccountType.UNDEFINED -> AccountType.CHECKING
-            AccountType.SAVINGS -> AccountType.SAVINGS_AND_CHECKING
-            AccountType.SAVINGS_AND_CHECKING -> AccountType.SAVINGS_AND_CHECKING
+            AccountType.SAVINGS -> AccountType.CHECKING_AND_SAVINGS
+            AccountType.CHECKING_AND_SAVINGS -> AccountType.CHECKING_AND_SAVINGS
             AccountType.CHECKING -> AccountType.CHECKING
         }
         return returnedType

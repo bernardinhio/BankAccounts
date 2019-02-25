@@ -2,14 +2,13 @@ package bernardo.bernardinhio.kotlinclasstypesInbankingapp.view
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.RadioGroup
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
-import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.Account
+import bernardo.bernardinhio.kotlinclasstypesInbankingapp.data.SystemData
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.CheckingAccount
 
 class FragmentCreateAccount : Fragment(){
@@ -38,11 +37,10 @@ class FragmentCreateAccount : Fragment(){
     private fun setUiDefaultValues() {
         val defaultCheckingAccount = CheckingAccount()
         // it can also be SavingsAccount because the default values are set in
-        // the abstract class which we cannot initialize
-
+        // the abstract super class which we cannot initialize
         etCheckingBalance.setText(defaultCheckingAccount.checkingBalance.toString())
         etOverdraftLimit.setText(defaultCheckingAccount.overdraftLimit.toString())
         etSavingsBalance.setText(defaultCheckingAccount.savingsBalance.toString())
-        etYearlyInterestRate.setText(defaultCheckingAccount.yearlyInterestRate.toString())
+        etYearlyInterestRate.setText(SystemData.yearlyInterestRate.toString())
     }
 }

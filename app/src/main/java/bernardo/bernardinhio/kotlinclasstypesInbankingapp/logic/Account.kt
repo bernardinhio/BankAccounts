@@ -1,5 +1,7 @@
 package bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic
 
+import bernardo.bernardinhio.kotlinclasstypesInbankingapp.data.SystemData
+
 abstract class Account(
         val id : Long = System.currentTimeMillis() - "account".length,
         val dateCreated : String = getFormattedTime(System.currentTimeMillis()),
@@ -7,7 +9,7 @@ abstract class Account(
         var owner : Owner = Owner(),
         var totalBalance : Double = 0.toDouble(),
         var savingsBalance : Double = 0.toDouble(),
-        var yearlyInterestRate : Double = 3.32,
+        var yearlyInterestRate : Double = SystemData.yearlyInterestRate,
         var checkingBalance : Double = 0.toDouble(),
         var overdraftLimit : Double = 1000.0
 ) {
@@ -39,8 +41,8 @@ abstract class Account(
 
 
 enum class AccountType(val type : String){
-    SAVINGS("savings"),
     CHECKING("checking"),
-    SAVINGS_AND_CHECKING("savings_and_checking"),
+    SAVINGS("savings"),
+    CHECKING_AND_SAVINGS("checking_and_savings"),
     UNDEFINED("")
 }

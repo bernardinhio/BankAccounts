@@ -1,6 +1,5 @@
 package bernardo.bernardinhio.kotlinclasstypesInbankingapp.view
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.View
 
@@ -10,8 +9,12 @@ class DashboardActivityClientCheckingAccount : DashboardActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dashboard_activity_client_checking_account)
+        setContentView(R.layout.activity_dashboard_client_checking_account)
         setActivityDimensions()
+    }
+
+    fun choose(vies : View){
+        chooseBetweenGlobalClients()
     }
 
 }

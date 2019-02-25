@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
         android:id="@+id/tv_label_enter_account_type"
-        android:text="Check account type (can be both)"
+        android:text="Select account type (can be both)"
         android:textSize="15sp"
         android:fontFamily="sans-serif-condensed"
         android:textColor="#000000"
@@ -52,6 +52,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RadioGroup>
+    <TextView
+        android:id="@+id/label_checking_balance"
+        android:text="Checking balance"
+        android:textSize="10sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#000000"
+        android:layout_marginTop="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rg_account_type"/>
     <EditText
         android:id="@+id/et_checking_balance"
         android:hint="Checking balance..."
@@ -60,16 +70,38 @@
         android:textSize="15sp"
         android:fontFamily="sans-serif-condensed"
         android:textColor="#000000"
+        android:background="@drawable/rectangle_white_transparent_inside_border_black"
         android:layout_marginTop="5sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/rg_account_type"/>
+        app:layout_constraintTop_toBottomOf="@id/label_checking_balance"/>
+    <TextView
+        android:id="@+id/label_overdraft_limit"
+        android:text="Overdraft Limit:"
+        android:textSize="10sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#000000"
+        android:layout_marginTop="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/et_checking_balance"/>
     <EditText
         android:id="@+id/et_overdraft_limit"
         android:hint="Overdraft limit..."
         android:textColorHint="#000000"
         android:inputType="numberDecimal"
         android:textSize="15sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#000000"
+        android:background="@drawable/rectangle_white_transparent_inside_border_black"
+        android:layout_marginTop="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/label_overdraft_limit"/>
+    <TextView
+        android:id="@+id/label_savings_balance"
+        android:text="Savings balance"
+        android:textSize="10sp"
         android:fontFamily="sans-serif-condensed"
         android:textColor="#000000"
         android:layout_marginTop="5sp"
@@ -84,22 +116,35 @@
         android:textSize="15sp"
         android:fontFamily="sans-serif-condensed"
         android:textColor="#000000"
+        android:background="@drawable/rectangle_white_transparent_inside_border_black"
         android:layout_marginTop="5sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/et_checking_balance"/>
-    <EditText
-        android:id="@+id/et_yearly_interest_rate"
-        android:hint="Yearly interest rate..."
-        android:inputType="numberDecimal"
-        android:textColorHint="#000000"
-        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/label_savings_balance"/>
+    <TextView
+        android:id="@+id/label_yearly_interest_rate"
+        android:text="Yearly Interest rate"
+        android:textSize="10sp"
         android:fontFamily="sans-serif-condensed"
         android:textColor="#000000"
         android:layout_marginTop="5sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/et_savings_balance"/>
+    <EditText
+        android:id="@+id/et_yearly_interest_rate"
+        android:hint="Yearly interest rate..."
+        android:inputType="numberDecimal"
+        android:textColorHint="#000000"
+        android:background="@drawable/rectangle_white_transparent_inside_border_black"
+        android:textSize="15sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#000000"
+        android:layout_marginTop="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        app:layout_constraintTop_toBottomOf="@id/label_yearly_interest_rate"/>
     <Button
         android:id="@+id/save_account_and_create_client"
         android:text="Save Account and create client"

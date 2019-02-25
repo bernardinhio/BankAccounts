@@ -1,15 +1,17 @@
 package bernardo.bernardinhio.kotlinclasstypesInbankingapp.view
 
-import android.app.Activity
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Point
+import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.FragmentActivity
-import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.WindowManager
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
 
-open class DashboardActivity : FragmentActivity(){
+open class DashboardActivity : FragmentActivity(){ // should be FragmentActivity to allow floating popop effect
 
     // comon to all dashboard activities
     protected fun setActivityDimensions(){
@@ -49,6 +51,17 @@ open class DashboardActivity : FragmentActivity(){
         return shouldAllowBack
     }
 
+    protected fun chooseBetweenGlobalClients(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Pick a Client")
+                .setItems(R.array.three_clients,
+                        DialogInterface.OnClickListener { dialog, which ->
+                            // The 'which' argument contains the index position
+                            // of the selected item
+                        })
+        builder.create()
+    }
+
     protected fun animateAffectedClient(){
         // to develop later maybe shaking container one of the 4
         // in MainActivity
@@ -58,4 +71,7 @@ open class DashboardActivity : FragmentActivity(){
     override fun onBackPressed() {
         confirmLeavingActivity()
     }
+
+
+
 }
