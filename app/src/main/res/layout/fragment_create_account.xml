@@ -107,6 +107,7 @@
         android:layout_marginTop="5sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/et_overdraft_limit"/>
     <EditText
         android:id="@+id/et_savings_balance"
@@ -120,6 +121,7 @@
         android:layout_marginTop="5sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/label_savings_balance"/>
     <TextView
         android:id="@+id/label_yearly_interest_rate"
@@ -130,6 +132,7 @@
         android:layout_marginTop="5sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/et_savings_balance"/>
     <EditText
         android:id="@+id/et_yearly_interest_rate"
@@ -144,6 +147,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:enabled="false"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/label_yearly_interest_rate"/>
     <Button
         android:id="@+id/save_account_and_create_client"

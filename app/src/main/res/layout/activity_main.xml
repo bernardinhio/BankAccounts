@@ -21,6 +21,20 @@
         app:layout_constraintRight_toLeftOf="@id/client_with_only_checking_account"
         android:background="@drawable/rectangle_light_yellow_inside_border_black">
         <TextView
+            android:id="@+id/owner_only_savings"
+            android:text="Bernardinhio"
+            android:gravity="center_horizontal"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="#000000"
+            android:background="@drawable/rectangle_white_transparent_inside_border_black"
+            android:textSize="12sp"
+            android:paddingTop="5sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:visibility="invisible"/>
+        <TextView
             android:id="@+id/title_savings"
             android:text="Client Savings account"
             android:gravity="center_horizontal"
@@ -28,12 +42,27 @@
             android:textColor="#001685"
             android:textStyle="bold"
             android:textSize="12sp"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/owner_only_savings"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+        <TextView
+            android:id="@+id/account_only_savings"
+            android:text="20000"
+            android:gravity="center_horizontal"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="#000000"
+            android:background="@drawable/rectangle_white_transparent_inside_border_black"
+            android:textSize="12sp"
             android:paddingTop="5sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_savings"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            android:visibility="invisible"/>
         <Button
             android:id="@+id/bt_dashboard_savings"
             android:text="Do something"
@@ -46,7 +75,7 @@
             android:background="@drawable/rectangle_white_inside_border_black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/title_savings"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="invisible"/>
     </android.support.constraint.ConstraintLayout>
     <android.support.constraint.ConstraintLayout
@@ -62,6 +91,20 @@
         app:layout_constraintLeft_toRightOf="@id/client_with_only_savings_account"
         android:background="@drawable/rectangle_light_green_inside_border_black">
         <TextView
+            android:id="@+id/owner_only_checking"
+            android:text="Bernardinhio"
+            android:gravity="center_horizontal"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="#000000"
+            android:background="@drawable/rectangle_white_transparent_inside_border_black"
+            android:textSize="12sp"
+            android:paddingTop="5sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:visibility="invisible"/>
+        <TextView
             android:id="@+id/title_checking"
             android:text="Client Checking account"
             android:gravity="center_horizontal"
@@ -69,12 +112,26 @@
             android:textColor="#001685"
             android:textStyle="bold"
             android:textSize="12sp"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/owner_only_checking"
+            app:layout_constraintRight_toRightOf="parent"/>
+        <TextView
+            android:id="@+id/account_only_checking"
+            android:text="254366"
+            android:gravity="center_horizontal"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="#000000"
+            android:background="@drawable/rectangle_white_transparent_inside_border_black"
+            android:textSize="12sp"
             android:paddingTop="5sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_checking"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            android:visibility="invisible"/>
         <Button
             android:id="@+id/bt_dashboard_checking"
             android:text="Do something"
@@ -87,8 +144,8 @@
             android:background="@drawable/rectangle_white_inside_border_black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/title_checking"
-            android:visibility="visible"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="invisible"/>
     </android.support.constraint.ConstraintLayout>
     <android.support.constraint.ConstraintLayout
         android:id="@+id/container_result"
@@ -108,7 +165,7 @@
                 android:hint="Here will be more details..."
                 android:textColorHint="#AAF1FA"
                 android:textSize="15sp"
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:fontFamily="sans-serif-condensed" />
         </ScrollView>
     </android.support.constraint.ConstraintLayout>
@@ -124,6 +181,20 @@
         app:layout_constraintRight_toLeftOf="@id/bank"
         android:background="@drawable/rectangle_light_red_inside_border_black">
         <TextView
+            android:id="@+id/owner_both_savings_and_checking"
+            android:text="Bernardinhio"
+            android:gravity="center_horizontal"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="#000000"
+            android:background="@drawable/rectangle_white_transparent_inside_border_black"
+            android:textSize="12sp"
+            android:paddingTop="5sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:visibility="invisible"/>
+        <TextView
             android:id="@+id/title_savings_and_checking"
             android:text="Client Savings and Checking account"
             android:gravity="center_horizontal"
@@ -131,12 +202,27 @@
             android:textColor="#001685"
             android:textStyle="bold"
             android:textSize="12sp"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/owner_both_savings_and_checking"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+        <TextView
+            android:id="@+id/account_both_savings_and_checking"
+            android:text="23416"
+            android:gravity="center_horizontal"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="#000000"
+            android:background="@drawable/rectangle_white_transparent_inside_border_black"
+            android:textSize="12sp"
             android:paddingTop="5sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_savings_and_checking"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            android:visibility="invisible"/>
         <Button
             android:id="@+id/bt_dashboard_savings_and_checking"
             android:text="Do something"
@@ -149,7 +235,7 @@
             android:background="@drawable/rectangle_white_inside_border_black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/title_savings_and_checking"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="invisible"/>
     </android.support.constraint.ConstraintLayout>
     <android.support.constraint.ConstraintLayout
@@ -170,11 +256,13 @@
             android:fontFamily="sans-serif-condensed"
             android:textColor="#850000"
             android:textStyle="bold"
-            android:textSize="12sp"
-            android:paddingTop="5sp"
+            android:textSize="20sp"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
         <Button
@@ -189,6 +277,6 @@
             android:background="@drawable/rectangle_white_inside_border_black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/title_bank"/>
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

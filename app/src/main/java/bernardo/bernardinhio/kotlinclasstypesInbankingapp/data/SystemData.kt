@@ -10,9 +10,9 @@ class SystemData{
         var yearlyInterestRate : Double = 3.32
 
         // used in the UI
-        var accountOwnerOnlyChecking: Account? = null
-        var accountOwnerOnlySavings: Account? = null
-        var accountOwnerBothCheckingAndSavings: Account? = null
+        var accountOnlyChecking: Account? = null
+        var accountOnlySavings: Account? = null
+        var accountBothCheckingAndSavings: Account? = null
         var ownerOnlyCheckingAccount: Owner? = null
         var ownerOnlySavingsAccount: Owner? = null
         var ownerBothCheckingAndSavingsAccount: Owner? = null

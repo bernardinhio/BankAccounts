@@ -13,8 +13,4 @@ class DashboardActivityClientCheckingAccount : DashboardActivity() {
         setActivityDimensions()
     }
 
-    fun choose(vies : View){
-        chooseBetweenGlobalClients()
-    }
-
 }

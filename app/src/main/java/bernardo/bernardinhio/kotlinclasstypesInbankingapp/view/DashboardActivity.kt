@@ -27,7 +27,7 @@ open class DashboardActivity : FragmentActivity(){ // should be FragmentActivity
         activityContainerLayoutParams.height = screenHeight - distanceToDeduce
     }
 
-    // comon to all dashboard activities button close same id
+    // common to all dashboard activities button close same id
     fun closeActivityBank(view : View){
         confirmLeavingActivity()
     }

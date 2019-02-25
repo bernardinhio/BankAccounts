@@ -1,7 +1,6 @@
 package bernardo.bernardinhio.kotlinclasstypesInbankingapp.view
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
@@ -20,7 +19,7 @@ class DashboardActivityBank : DashboardActivity() {
     var areFieldsAccountFilled = false
 
     lateinit var globalInterestRate : EditText
-    lateinit var buttonGlobalInterest : Button
+    lateinit var buttonChangeGlobalInterest : Button
     lateinit var buttonCreateClient : Button
     lateinit var buttonCreateAccount : Button
 
@@ -40,8 +39,7 @@ class DashboardActivityBank : DashboardActivity() {
 
         globalInterestRate =  findViewById(R.id.et_global_yearly_interest_rate)
 
-
-        buttonGlobalInterest = findViewById<Button>(R.id.bt_change_bank_yearly_interest_rate)
+        buttonChangeGlobalInterest = findViewById<Button>(R.id.bt_change_bank_yearly_interest_rate)
         buttonCreateClient = findViewById<Button>(R.id.create_client)
         buttonCreateAccount = findViewById<Button>(R.id.create_account)
 
@@ -102,7 +100,7 @@ class DashboardActivityBank : DashboardActivity() {
         buttonCreateClient.visibility = View.GONE
         buttonCreateAccount.visibility = View.GONE
         globalInterestRate.visibility = View.GONE
-        buttonGlobalInterest.visibility = View.GONE
+        buttonChangeGlobalInterest.visibility = View.GONE
     }
 
     private fun setupClient() {
@@ -116,7 +114,7 @@ class DashboardActivityBank : DashboardActivity() {
     }
 
     private fun setupAccount() {
-        // we keep it not initialized (or abstract) untill we know teh type
+        // we keep it not initialized (or abstract) until we know teh type
         // that the bank employee wishes
         when(fragmentCreateAccount.radioGroupAccountType.checkedRadioButtonId){
             R.id.rb_type_checking -> setupCheckingAccount()
@@ -173,17 +171,17 @@ class DashboardActivityBank : DashboardActivity() {
             when(newOwner.accountType){
                 AccountType.CHECKING -> {
                     SystemData.ownerOnlyCheckingAccount = newOwner
-                    SystemData.accountOwnerOnlyChecking = newAccount
+                    SystemData.accountOnlyChecking = newAccount
                     SystemData.accountModified = AccountType.CHECKING
                 }
                 AccountType.SAVINGS -> {
                     SystemData.ownerOnlySavingsAccount = newOwner
-                    SystemData.accountOwnerOnlySavings = newAccount
+                    SystemData.accountOnlySavings = newAccount
                     SystemData.accountModified = AccountType.SAVINGS
                 }
                 AccountType.CHECKING_AND_SAVINGS -> {
                     SystemData.ownerBothCheckingAndSavingsAccount = newOwner
-                    SystemData.accountOwnerBothCheckingAndSavings = newAccount
+                    SystemData.accountBothCheckingAndSavings = newAccount
                     SystemData.accountModified = AccountType.CHECKING_AND_SAVINGS
                 }
             }
