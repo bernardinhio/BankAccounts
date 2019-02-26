@@ -31,9 +31,14 @@ fun main(args : Array<String>){
 
     **/
 
-    val checking = CheckingAccount(12345.6, 5438.9)
+    val checking = CheckingAccount(12345.6, 5438.9, 54.9)
     println(checking.checkingBalance)
     println(checking.overdraftLimit)
+
+    val savings = SavingsAccount(5666777.7, 3.43, 0.0)
+    println(savings.savingsBalance)
+    println(savings.yearlyInterestRate)
+
 
     fun createNewClient() : Owner = Owner()
 
@@ -80,7 +85,7 @@ fun main(args : Array<String>){
 
     val checking2 : CheckingAccount = CheckingAccount()
     val checking1 : CheckingAccount = CheckingAccount(2000.0)
-    val checking3 : CheckingAccount = CheckingAccount(2000.0, 1000.0)
+    val checking3 : CheckingAccount = CheckingAccount(2000.0, 1000.0, 34.8)
 
     // access superclass properties
     checking2.id
@@ -88,7 +93,6 @@ fun main(args : Array<String>){
     checking2.owner
 
     // access superclass fields
-    checking2.totalBalance  // not modified in superclass
     checking2.type  // yes modified in superclass init
     checking2.checkingBalance  // yes modified in superclass init
 
@@ -101,7 +105,7 @@ fun main(args : Array<String>){
 
     val savings1 : SavingsAccount = SavingsAccount()
     val savings2 : SavingsAccount = SavingsAccount(200.0)
-    val savings3 : SavingsAccount = SavingsAccount(200.0, 5.0)
+    val savings3 : SavingsAccount = SavingsAccount(200.0, 5.0, 0.0)
 
     // access superclass properties
     savings2.id
@@ -109,7 +113,6 @@ fun main(args : Array<String>){
     savings2.owner
 
     // access superclass fields
-    savings2.totalBalance  // not modified in superclass
     savings2.type  // yes modified in superclass init
     savings2.checkingBalance  // yes modified in superclass init
 

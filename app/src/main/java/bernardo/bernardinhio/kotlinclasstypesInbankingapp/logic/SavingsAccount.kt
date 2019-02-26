@@ -6,17 +6,16 @@ class SavingsAccount() : Account() {
         this.savingsBalance = savingsBalance
     }
 
-    constructor(savingsBalance : Double, yearlyInterestRate : Double) : this() {
+    constructor(savingsBalance : Double, yearlyInterestRate : Double, yearlyBenefit : Double) : this() {
         this.savingsBalance = savingsBalance
         this.yearlyInterestRate = yearlyInterestRate
+        this.yearlyBenefit = yearlyBenefit
     }
 
     private var monthlyInterestRate : Double = yearlyInterestRate /12
-    private var monthlyBenefit : Double = super.totalBalance * monthlyInterestRate
 
     init {
         super.type = checkIfTypeNeedsModification()
-        super.checkingBalance = super.totalBalance - savingsBalance
     }
 
     private fun checkIfTypeNeedsModification() : AccountType {
@@ -35,7 +34,6 @@ class SavingsAccount() : Account() {
 
     override fun addMoney(amount: Double) {
         savingsBalance += amount
-        totalBalance += amount
     }
 
     // for accountBothCheckingAndSavings
@@ -45,7 +43,6 @@ class SavingsAccount() : Account() {
             AccountType.CHECKING_AND_SAVINGS -> {
                 if (amount <= savingsBalance){
                     savingsBalance -= amount
-                    totalBalance -= amount
                 } else{
                     println("You can't withdraw $amount, it's more than your entire savings: $savingsBalance !")
                     println("Do you want to withdraw from your Checking balance? sure? You have there: $checkingBalance !")
@@ -57,7 +54,6 @@ class SavingsAccount() : Account() {
             AccountType.SAVINGS -> {
                 if (amount <= savingsBalance){
                     savingsBalance -= amount
-                    totalBalance -= amount
                 } else{
                     println("You can't withdraw $amount, it's more than your entire savings: $savingsBalance !")
                 }
@@ -76,7 +72,6 @@ class SavingsAccount() : Account() {
         if (this.type == AccountType.CHECKING_AND_SAVINGS){
             if (amount <= checkingBalance + overdraftLimit){
                 checkingBalance -= amount
-                totalBalance -= amount
             } else println("Sorry, your checking-balance $checkingBalance aren't enough for withdrawing $amount")
         }
     }

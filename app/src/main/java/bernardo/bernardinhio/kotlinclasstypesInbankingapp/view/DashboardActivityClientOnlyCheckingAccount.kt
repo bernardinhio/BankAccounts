@@ -2,6 +2,7 @@ package bernardo.bernardinhio.kotlinclasstypesInbankingapp.view
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
 
@@ -11,20 +12,28 @@ class DashboardActivityClientOnlyCheckingAccount : DashboardActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard_client_only_checking_account)
         setActivityDimensions()
+        this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 
+    // abstract
     fun getBalance(view : View){}
 
-    fun getOverdraftLimit(view : View){}
-
-    fun getRemainingOverdraft(view : View){}
-
-    fun withdrawMoney(view : View){}
-
-    // add first to complete the missing Overdraft then when done
-    // add to checking
+    // abstract // add to checking balance
     fun addMoney(view : View){}
 
-    // to only to other account Checking type
+    // superclass
+    // according to type if only Checking then
+    // withdraw from checking, if type is CheckingAndSavings
+    // then offer possibility if not exist to withdraw from Savings
+    fun withdrawMoney(view : View){}
+
+    // superclass
+    fun getOverdraftLimit(view : View){}
+
+    // superclass
+    fun getRemainingOverdraft(view : View){}
+
+    // subclass transfer to only Account of type:
+    // checking or CheckingAndSavings but to checking balance
     fun transferToSomeone(view : View){}
 }

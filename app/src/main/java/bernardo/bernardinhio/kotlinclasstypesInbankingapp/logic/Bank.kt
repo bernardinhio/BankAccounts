@@ -2,6 +2,6 @@ package bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic
 
 class Bank{
 
-    // required
+    // required when refactoring
     fun provideInterestToAllUsers(){}
 }

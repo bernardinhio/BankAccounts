@@ -8,8 +8,6 @@ class SystemData{
 
     companion object {
 
-        var yearlyInterestRate : Double = 3.32
-
         // used in the UI
         var accountOnlyChecking: Account? = null
         var accountOnlySavings: Account? = null

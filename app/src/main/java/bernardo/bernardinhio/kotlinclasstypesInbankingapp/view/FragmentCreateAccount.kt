@@ -11,6 +11,7 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.data.SystemData
+import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.Account
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.CheckingAccount
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.OverdraftLimitType
 
@@ -54,11 +55,8 @@ class FragmentCreateAccount : Fragment(){
     }
 
     private fun setUiDefaultValues() {
-        val defaultCheckingAccount = CheckingAccount()
-        // it can also be SavingsAccount because the default values are set in
-        // the abstract super class which we cannot initialize
         etOverdraftLimit.setText(OverdraftLimitType.LIMIT_1000.limit.toString())
-        etYearlyInterestRate.setText(SystemData.yearlyInterestRate.toString())
+        etYearlyInterestRate.setText(Account.yearlyInterestRate.toString())
     }
 
     private fun setRadioGroupCheckedListener() {

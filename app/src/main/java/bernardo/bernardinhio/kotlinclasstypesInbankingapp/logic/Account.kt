@@ -1,23 +1,24 @@
 package bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic
 
-import bernardo.bernardinhio.kotlinclasstypesInbankingapp.data.SystemData
-
 abstract class Account(
         val id : Long = System.currentTimeMillis() - "account".length,
-        val dateCreated : String = getFormattedTime(System.currentTimeMillis()),
+        val dateCreated : String = Account.getFormattedTime(System.currentTimeMillis()),
         var type : AccountType = AccountType.UNDEFINED,
         var owner : Owner = Owner(),
-        var totalBalance : Double = 0.toDouble(),
         var savingsBalance : Double = 0.toDouble(),
-        var yearlyInterestRate : Double = SystemData.yearlyInterestRate,
+        var yearlyInterestRate : Double = Account.yearlyInterestRate,
+        var yearlyBenefit : Double = 0.toDouble(),
         var checkingBalance : Double = 0.toDouble(),
-        var overdraftLimit : Double = OverdraftLimitType.LIMIT_1000.limit
+        var overdraftLimit : Double = OverdraftLimitType.LIMIT_1000.limit,
+        var remainingOverdraft : Double = overdraftLimit
 ) {
 
     companion object {
 
+        var yearlyInterestRate : Double = 3.32
+
         private fun getFormattedTime(timeStamp: Long): String {
-            return ""
+            return timeStamp.toString() // TODO conversion later
         }
     }
 
@@ -36,6 +37,7 @@ abstract class Account(
     // CheckingAccount withdraw from checkingBalance
     // totalBalance is updated in subclass
     abstract fun withdrawMoney(amount : Double)
+
 
 }
 

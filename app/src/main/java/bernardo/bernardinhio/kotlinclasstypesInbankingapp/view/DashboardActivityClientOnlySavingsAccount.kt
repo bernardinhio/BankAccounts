@@ -2,6 +2,7 @@ package bernardo.bernardinhio.kotlinclasstypesInbankingapp.view
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.data.SystemData
@@ -17,16 +18,24 @@ class DashboardActivityClientOnlySavingsAccount : DashboardActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard_client_only_savings_account)
         setActivityDimensions()
+        this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 
+    // abstract
     fun getBalance(view : View){}
 
-    // both yearly or monthly (radio buttons)
-    fun getInterest(view : View){}
+    // abstract // add to checking balance
+    fun addMoney(view : View){}
 
+    // superclass
+    // according to type if only Checking then
+    // withdraw from checking, if type is CheckingAndSavings
+    // then offer possibility if not exist to withdraw from Savings
     fun withdrawMoney(view : View){}
 
-    fun addMoney(view : View){}
+    // both yearly or monthly (radio buttons)
+    fun getInterestPerYear(view : View){}
+    fun getInterestPerMonth(view : View){}
 
     // to only to other account Savings type
     fun transferToSomeone(view : View){}

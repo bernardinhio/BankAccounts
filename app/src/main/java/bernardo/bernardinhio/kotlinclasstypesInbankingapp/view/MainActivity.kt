@@ -92,7 +92,9 @@ class MainActivity : AppCompatActivity() {
     private fun updateUiCheckingOnlyAccount() {
         showAccountOnlyCheckingDetails(true)
         tvOwnerInfoOnlyChecking.text = "Owner: ${SystemData.ownerOnlyCheckingAccount?.firstName} ${SystemData.ownerOnlyCheckingAccount?.lastName}"
-        tvAccountInfoOnlyChecking.text = "Checking Balance: ${SystemData.accountOnlyChecking?.checkingBalance} € \nOverdraft Limit: ${SystemData.accountOnlyChecking?.overdraftLimit} €"
+        tvAccountInfoOnlyChecking.text =
+                "Checking Balance: ${SystemData.accountOnlyChecking?.checkingBalance} €" +
+                "\nOverdraft Limit: ${SystemData.accountOnlyChecking?.overdraftLimit} €"
         tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created Checking-only account"
     }
 
@@ -105,7 +107,8 @@ class MainActivity : AppCompatActivity() {
     private fun updateUiSavingsOnlyAccount() {
         showAccountOnlySavingsDetails(true)
         tvOwnerInfoOnlySavings.text = "Owner: ${SystemData.ownerOnlySavingsAccount?.firstName} ${SystemData.ownerOnlySavingsAccount?.lastName}"
-        tvAccountInfoOnlySavings.text = "Savings Balance: ${SystemData.accountOnlySavings?.savingsBalance} €"
+        tvAccountInfoOnlySavings.text = "Savings Balance: ${SystemData.accountOnlySavings?.savingsBalance} €" +
+                "\n Interest/year: ${SystemData.accountOnlySavings?.yearlyInterestRate}%"
         tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created Savings-only account"
     }
 
@@ -118,8 +121,11 @@ class MainActivity : AppCompatActivity() {
     private fun updateUiBothCheckingAndSavingsAccount() {
         showAccountBothCheckingAndSavingsDetails(true)
         tvOwnerInfoBothSavingsAndChecking.text = "Owner: ${SystemData.ownerBothCheckingAndSavingsAccount?.firstName} ${SystemData.ownerBothCheckingAndSavingsAccount?.lastName}"
-        tvAccountInfoBothSavingsAndChecking.text = "Checking Balance: ${SystemData.accountBothCheckingAndSavings?.checkingBalance} €\nSavings Balance: ${SystemData.accountBothCheckingAndSavings?.savingsBalance} €  \n" +
-                "Overdraft Limit: ${SystemData.accountBothCheckingAndSavings?.overdraftLimit} €"
+        tvAccountInfoBothSavingsAndChecking.text =
+                "Checking Balance: ${SystemData.accountBothCheckingAndSavings?.checkingBalance} €" +
+                        "\nOverdraft Limit: ${SystemData.accountBothCheckingAndSavings?.overdraftLimit} €" +
+                        "\nSavings Balance: ${SystemData.accountBothCheckingAndSavings?.savingsBalance} €" +
+                        "\nInterest/year: ${SystemData.accountOnlySavings?.yearlyInterestRate}%"
         tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created both Checking & Savings account"
     }
 

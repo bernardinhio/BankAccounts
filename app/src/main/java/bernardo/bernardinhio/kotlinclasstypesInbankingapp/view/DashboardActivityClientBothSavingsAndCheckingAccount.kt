@@ -2,6 +2,7 @@ package bernardo.bernardinhio.kotlinclasstypesInbankingapp.view
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
 
@@ -11,6 +12,7 @@ class DashboardActivityClientBothSavingsAndCheckingAccount : DashboardActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard_client_both_checking_and_savings_account)
         setActivityDimensions()
+        this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 
     fun getBalance(view : View){}

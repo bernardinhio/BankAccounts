@@ -19,10 +19,10 @@ class DashboardActivityBank : DashboardActivity() {
     var areFieldsClientFilled = false
     var areFieldsAccountFilled = false
 
-    lateinit var globalInterestRate : EditText
-    lateinit var buttonChangeGlobalInterest : Button
-    lateinit var buttonCreateClient : Button
-    lateinit var buttonCreateAccount : Button
+    lateinit var etGlobalInterestRate : EditText
+    lateinit var btnChangeGlobalInterest : Button
+    lateinit var btnCreateClient : Button
+    lateinit var btnCreateAccount : Button
 
     var newOwner : Owner = Owner()
     lateinit var newAccount : Account
@@ -33,34 +33,34 @@ class DashboardActivityBank : DashboardActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
-
         setContentView(R.layout.activity_dashboard_bank)
         setActivityDimensions()
 
-        globalInterestRate =  findViewById(R.id.et_global_yearly_interest_rate)
+        this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
-        buttonChangeGlobalInterest = findViewById<Button>(R.id.bt_change_bank_yearly_interest_rate)
-        buttonCreateClient = findViewById<Button>(R.id.create_client)
-        buttonCreateAccount = findViewById<Button>(R.id.create_account)
+        etGlobalInterestRate =  findViewById(R.id.et_global_yearly_interest_rate)
+
+        btnChangeGlobalInterest = findViewById<Button>(R.id.bt_change_bank_yearly_interest_rate)
+        btnCreateClient = findViewById<Button>(R.id.create_client)
+        btnCreateAccount = findViewById<Button>(R.id.create_account)
 
     }
 
     fun changeBankYearlyInterestRate(view : View){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Current Interest rate is: ${SystemData.yearlyInterestRate}\nSure change the bank Interest rate?")
-                .setMessage("This will affect all Accounts!")
-                .setPositiveButton("YES") { dialog, which ->
-                    if (!globalInterestRate.text.isEmpty()){
-                        SystemData.yearlyInterestRate = globalInterestRate.text.toString().toDouble()
-                        globalInterestRate.isEnabled = false
+        if (!etGlobalInterestRate.text.isEmpty()){
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Current Interest rate is: ${Account.yearlyInterestRate}\nSure change the bank Interest rate?")
+                    .setMessage("This will affect all Accounts!")
+                    .setPositiveButton("YES") { dialog, which ->
+                        Account.yearlyInterestRate = etGlobalInterestRate.text.toString().toDouble()
+                        etGlobalInterestRate.isEnabled = false
                     }
-                }
-                .setNeutralButton("CANCEL") {
-                    dialog, which ->
-                    builder.setCancelable(true)
-                }
-                .show()
+                    .setNeutralButton("CANCEL") {
+                        dialog, which ->
+                        builder.setCancelable(true)
+                    }
+                    .show()
+        } else Toast.makeText(this, "You didn't enter new Yearly Interest rate", Toast.LENGTH_LONG).show()
     }
 
     fun createClient(view : View){
@@ -100,10 +100,10 @@ class DashboardActivityBank : DashboardActivity() {
     }
 
     private fun hideButtonsBankMain() {
-        buttonCreateClient.visibility = View.GONE
-        buttonCreateAccount.visibility = View.GONE
-        globalInterestRate.visibility = View.GONE
-        buttonChangeGlobalInterest.visibility = View.GONE
+        btnCreateClient.visibility = View.GONE
+        btnCreateAccount.visibility = View.GONE
+        etGlobalInterestRate.visibility = View.GONE
+        btnChangeGlobalInterest.visibility = View.GONE
     }
 
     private fun setupClient() {
@@ -141,6 +141,7 @@ class DashboardActivityBank : DashboardActivity() {
     private fun setupCheckingAccount() {
         newAccount = CheckingAccount(
                 getNonEmptyEnteredCheckingBalance(),
+                getNonEmptyEnteredOverdraftLimit(),
                 getNonEmptyEnteredOverdraftLimit()
         )
         //setters
@@ -165,6 +166,7 @@ class DashboardActivityBank : DashboardActivity() {
         newAccount.type = AccountType.CHECKING_AND_SAVINGS
         newAccount.checkingBalance = getNonEmptyEnteredCheckingBalance()
         newAccount.overdraftLimit = getNonEmptyEnteredOverdraftLimit()
+        newAccount.remainingOverdraft = getNonEmptyEnteredOverdraftLimit()
         newAccount.savingsBalance = getNonEmptyEnteredSavingsBalance()
         // Theoretically we should not be able to set an interest rate because
         // banks have one Interest rate for all accounts, however for the
