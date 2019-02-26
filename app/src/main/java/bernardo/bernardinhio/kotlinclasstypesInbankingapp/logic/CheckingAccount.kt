@@ -6,6 +6,10 @@ class CheckingAccount() : Account() {
 
     constructor(checkingBalance : Double, overdraftLimit : Double) : this()
 
+    // asked by the sunhill
+    var currentInterestPerYear : Double = 0.toDouble()
+    var currentInterestPerMonth : Double = 0.toDouble()
+
     init {
         this.type = checkIfTypeNeedsModification()
     }

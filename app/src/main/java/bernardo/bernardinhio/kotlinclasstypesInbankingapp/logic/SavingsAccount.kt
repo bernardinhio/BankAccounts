@@ -33,17 +33,32 @@ class SavingsAccount() : Account() {
         totalBalance += amount
     }
 
+    // for accountBothCheckingAndSavings
+    // AND for accountOnlySavings
     override fun withdrawMoney(amount: Double) {
-        if (amount <= savingsBalance){
-            savingsBalance -= amount
-            totalBalance -= amount
-        } else{
-            println("You can't withdraw $amount, it's more than your entire savings: $savingsBalance !")
-            println("Do you want to withdraw from your Checking balance? sure? You have there: $checkingBalance !")
-            if (confirmWithdrawFromSavingsAccount()){
-                withdrawFromCheckingAccount(amount)
+        when(this.type){
+            AccountType.CHECKING_AND_SAVINGS -> {
+                if (amount <= savingsBalance){
+                    savingsBalance -= amount
+                    totalBalance -= amount
+                } else{
+                    println("You can't withdraw $amount, it's more than your entire savings: $savingsBalance !")
+                    println("Do you want to withdraw from your Checking balance? sure? You have there: $checkingBalance !")
+                    if (confirmWithdrawFromSavingsAccount()){
+                        withdrawFromCheckingAccount(amount)
+                    }
+                }
+            }
+            AccountType.SAVINGS -> {
+                if (amount <= savingsBalance){
+                    savingsBalance -= amount
+                    totalBalance -= amount
+                } else{
+                    println("You can't withdraw $amount, it's more than your entire savings: $savingsBalance !")
+                }
             }
         }
+
     }
 
     private fun confirmWithdrawFromSavingsAccount() : Boolean{
@@ -51,19 +66,24 @@ class SavingsAccount() : Account() {
         return confirmed
     }
 
+    // only for accountBothCheckingAndSavings
     private fun withdrawFromCheckingAccount(amount: Double) {
-        if (amount <= checkingBalance + overdraftLimit){
-            checkingBalance -= amount
-            totalBalance -= amount
-        } else println("Sorry, your checking-balance $checkingBalance aren't enough for withdrawing $amount")
+        if (this.type == AccountType.CHECKING_AND_SAVINGS){
+            if (amount <= checkingBalance + overdraftLimit){
+                checkingBalance -= amount
+                totalBalance -= amount
+            } else println("Sorry, your checking-balance $checkingBalance aren't enough for withdrawing $amount")
+        }
     }
 
-
+    // only for accountBothCheckingAndSavings
     fun convertToCheckingAccount(amount : Double){
-        if (amount <= savingsBalance){
-            savingsBalance -= amount
-            checkingBalance += amount
-        } else println("Sorry, you can't convert $amount from Savings to checking-account, it's more than you actually have only: $savingsBalance")
+        if (this.type == AccountType.CHECKING_AND_SAVINGS){
+            if (amount <= savingsBalance){
+                savingsBalance -= amount
+                checkingBalance += amount
+            } else println("Sorry, you can't convert $amount from Savings to checking-account, it's more than you actually have only: $savingsBalance")
+        }
     }
 
 

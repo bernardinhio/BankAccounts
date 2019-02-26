@@ -46,3 +46,13 @@ enum class AccountType(val type : String){
     CHECKING_AND_SAVINGS("checking_and_savings"),
     UNDEFINED("")
 }
+
+enum class OverdraftLimitType(val limit : Double, val salaryLess : Double){
+    LIMIT_1000(1000.0, 1000.0),
+    LIMIT_1600(1600.0, 2350.0),
+    LIMIT_2000(2000.0, 3500.0),
+    LIMIT_3000(3000.0, 4800.0),
+    LIMIT_4500(4500.0, 6300.0),
+    LIMIT_6000(6000.0, 8000.0),
+    UNDEFINED(0.0, 0.0)
+}

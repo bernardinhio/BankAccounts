@@ -20,21 +20,21 @@
         </activity>
 
         <activity
-            android:name=".view.DashboardActivityClientSavingsAccount"
+            android:name=".view.DashboardActivityClientOnlySavingsAccount"
             android:theme="@style/CustomFloatingActivityTheme"
             android:parentActivityName=".view.MainActivity">
 
         </activity>
 
         <activity
-            android:name=".view.DashboardActivityClientCheckingAccount"
+            android:name=".view.DashboardActivityClientOnlyCheckingAccount"
             android:theme="@style/CustomFloatingActivityTheme"
             android:parentActivityName=".view.MainActivity">
 
         </activity>
 
         <activity
-            android:name=".view.DashboardActivityClientSavingsAndCheckingAccount"
+            android:name=".view.DashboardActivityClientBothSavingsAndCheckingAccount"
             android:theme="@style/CustomFloatingActivityTheme"
             android:parentActivityName=".view.MainActivity">
 

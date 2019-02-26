@@ -70,7 +70,7 @@ class DashboardActivityBank : DashboardActivity() {
             updateAppAccountsAndOwners()
         }
         if (!areFieldsClientFilled){
-            hideButtonsCreate()
+            hideButtonsBankMain()
             val fragmentManager: FragmentManager? = this.supportFragmentManager
             val fragmentTransaction: FragmentTransaction? = fragmentManager!!.beginTransaction()
             fragmentTransaction!!.replace(R.id.container_bank_input, fragmentCreateClient)
@@ -87,7 +87,7 @@ class DashboardActivityBank : DashboardActivity() {
             updateAppAccountsAndOwners()
         }
         if (!areFieldsAccountFilled){
-            hideButtonsCreate()
+            hideButtonsBankMain()
             val fragmentManager: FragmentManager? = this.supportFragmentManager
             val fragmentTransaction: FragmentTransaction? = fragmentManager!!.beginTransaction()
             fragmentTransaction!!.replace(R.id.container_bank_input, fragmentCreateAccount)
@@ -96,7 +96,7 @@ class DashboardActivityBank : DashboardActivity() {
         }
     }
 
-    private fun hideButtonsCreate() {
+    private fun hideButtonsBankMain() {
         buttonCreateClient.visibility = View.GONE
         buttonCreateAccount.visibility = View.GONE
         globalInterestRate.visibility = View.GONE
