@@ -9,7 +9,7 @@ class DashboardActivityClientOnlyCheckingAccount : DashboardActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dashboard_client_checking_account)
+        setContentView(R.layout.activity_dashboard_client_only_checking_account)
         setActivityDimensions()
     }
 

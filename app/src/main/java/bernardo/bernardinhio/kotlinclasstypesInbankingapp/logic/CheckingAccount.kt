@@ -2,9 +2,14 @@ package bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic
 
 class CheckingAccount() : Account() {
 
-    constructor(checkingBalance : Double) : this()
+    constructor(checkingBalance : Double) : this(){
+        this.checkingBalance = checkingBalance
+    }
 
-    constructor(checkingBalance : Double, overdraftLimit : Double) : this()
+    constructor(checkingBalance : Double, overdraftLimit : Double) : this() {
+        this.checkingBalance = checkingBalance
+        this.overdraftLimit = overdraftLimit
+    }
 
     // asked by the sunhill
     var currentInterestPerYear : Double = 0.toDouble()

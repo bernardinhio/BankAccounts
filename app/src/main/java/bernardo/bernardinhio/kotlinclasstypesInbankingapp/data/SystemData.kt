@@ -7,6 +7,7 @@ import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.Owner
 class SystemData{
 
     companion object {
+
         var yearlyInterestRate : Double = 3.32
 
         // used in the UI
@@ -16,6 +17,15 @@ class SystemData{
         var ownerOnlyCheckingAccount: Owner? = null
         var ownerOnlySavingsAccount: Owner? = null
         var ownerBothCheckingAndSavingsAccount: Owner? = null
+
+        fun resetData() {
+            accountOnlyChecking = null
+            accountOnlySavings = null
+            accountBothCheckingAndSavings = null
+            ownerOnlyCheckingAccount = null
+            ownerOnlySavingsAccount = null
+            ownerBothCheckingAndSavingsAccount = null
+        }
 
         /**
          * since all activities of the App are using this adat provider

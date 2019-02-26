@@ -21,6 +21,7 @@ fun main(args : Array<String>){
      * the creation of Client (account owner)
      */
 
+    /**
     val welcomeAction = chooseBetweenTwo("Hello Employee\nCreate Client (c) or create bank account (b)?", "c", "b")
 
     when(welcomeAction){
@@ -28,8 +29,11 @@ fun main(args : Array<String>){
         "b" -> println("bank-account creation...")
     }
 
+    **/
 
-
+    val checking = CheckingAccount(12345.6, 5438.9)
+    println(checking.checkingBalance)
+    println(checking.overdraftLimit)
 
     fun createNewClient() : Owner = Owner()
 

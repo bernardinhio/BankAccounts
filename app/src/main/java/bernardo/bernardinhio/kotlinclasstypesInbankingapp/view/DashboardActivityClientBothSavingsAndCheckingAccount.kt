@@ -9,7 +9,7 @@ class DashboardActivityClientBothSavingsAndCheckingAccount : DashboardActivity()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dashboard_client_savings_and_checking_account)
+        setContentView(R.layout.activity_dashboard_client_both_checking_and_savings_account)
         setActivityDimensions()
     }
 

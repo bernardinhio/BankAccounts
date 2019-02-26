@@ -8,6 +8,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.data.SystemData
@@ -67,14 +68,16 @@ class DashboardActivityBank : DashboardActivity() {
         // then get entered data and update the Owner object
         if (areFieldsAccountFilled) {
             setupAccount()
-            updateAppAccountsAndOwners()
+            if (fragmentCreateAccount.radioGroupAccountType.checkedRadioButtonId != -1){
+                updateAppAccountsAndOwners()
+            } else Toast.makeText(this, "Select account Type", Toast.LENGTH_LONG).show()
         }
         if (!areFieldsClientFilled){
             hideButtonsBankMain()
             val fragmentManager: FragmentManager? = this.supportFragmentManager
             val fragmentTransaction: FragmentTransaction? = fragmentManager!!.beginTransaction()
             fragmentTransaction!!.replace(R.id.container_bank_input, fragmentCreateClient)
-            fragmentTransaction.commit() // synchronized
+            fragmentTransaction.commit()
             areFieldsClientFilled = true
         }
     }
@@ -91,7 +94,7 @@ class DashboardActivityBank : DashboardActivity() {
             val fragmentManager: FragmentManager? = this.supportFragmentManager
             val fragmentTransaction: FragmentTransaction? = fragmentManager!!.beginTransaction()
             fragmentTransaction!!.replace(R.id.container_bank_input, fragmentCreateAccount)
-            fragmentTransaction.commit() // synchronized
+            fragmentTransaction.commit()
             areFieldsAccountFilled = true
         }
     }
@@ -105,12 +108,24 @@ class DashboardActivityBank : DashboardActivity() {
 
     private fun setupClient() {
         // setters
-        newOwner.firstName = fragmentCreateClient.etFirstName.text.toString()
-        newOwner.lastName = fragmentCreateClient.etLastName.text.toString()
+        newOwner.firstName = getNonEmptyEnteredFirstName()
+        newOwner.lastName = getNonEmptyEnteredLastName()
         newOwner.dateOfBirth = fragmentCreateClient.etDateOfBirth.text.toString()
         newOwner.nationality = fragmentCreateClient.etNationality.text.toString()
         newOwner.address = fragmentCreateClient.etAddress.text.toString()
         newOwner.occupation = fragmentCreateClient.etOccupation.text.toString()
+    }
+
+    private fun getNonEmptyEnteredFirstName() : String{
+        return if(fragmentCreateClient.etFirstName.text.isEmpty()){
+            "John*"
+        } else fragmentCreateClient.etFirstName.text.toString()
+    }
+
+    private fun getNonEmptyEnteredLastName() : String{
+        return if(fragmentCreateClient.etLastName.text.isEmpty()){
+            "Denver*"
+        } else fragmentCreateClient.etLastName.text.toString()
     }
 
     private fun setupAccount() {
@@ -123,11 +138,10 @@ class DashboardActivityBank : DashboardActivity() {
         }
     }
 
-
     private fun setupCheckingAccount() {
         newAccount = CheckingAccount(
-                fragmentCreateAccount.etCheckingBalance.text.toString().toDouble(),
-                fragmentCreateAccount.etOverdraftLimit.text.toString().toDouble()
+                getNonEmptyEnteredCheckingBalance(),
+                getNonEmptyEnteredOverdraftLimit()
         )
         //setters
         newAccount.type = AccountType.CHECKING
@@ -137,10 +151,7 @@ class DashboardActivityBank : DashboardActivity() {
     }
 
     private fun setupSavingsAccount() {
-        newAccount = SavingsAccount(
-                fragmentCreateAccount.etSavingsBalance.text.toString().toDouble(),
-                fragmentCreateAccount.etYearlyInterestRate.text.toString().toDouble()
-        )
+        newAccount = SavingsAccount(getNonEmptyEnteredSavingsBalance())
         // setters
         newAccount.type = AccountType.SAVINGS
         newAccount.owner = this.newOwner
@@ -152,9 +163,9 @@ class DashboardActivityBank : DashboardActivity() {
         // we can initialize using either CheckingAccount or SavingsAccount
         newAccount = CheckingAccount()
         newAccount.type = AccountType.CHECKING_AND_SAVINGS
-        newAccount.checkingBalance = fragmentCreateAccount.etCheckingBalance.text.toString().toDouble()
-        newAccount.overdraftLimit = fragmentCreateAccount.etOverdraftLimit.text.toString().toDouble()
-        newAccount.savingsBalance = fragmentCreateAccount.etSavingsBalance.text.toString().toDouble()
+        newAccount.checkingBalance = getNonEmptyEnteredCheckingBalance()
+        newAccount.overdraftLimit = getNonEmptyEnteredOverdraftLimit()
+        newAccount.savingsBalance = getNonEmptyEnteredSavingsBalance()
         // Theoretically we should not be able to set an interest rate because
         // banks have one Interest rate for all accounts, however for the
         // purpose of App demonstration we don't know when such interest rate
@@ -165,6 +176,23 @@ class DashboardActivityBank : DashboardActivity() {
         newOwner.account = this.newAccount
     }
 
+    private fun getNonEmptyEnteredCheckingBalance() : Double{
+        return if (fragmentCreateAccount.etCheckingBalance.text.isEmpty()){
+            0.0
+        } else fragmentCreateAccount.etCheckingBalance.text.toString().toDouble()
+    }
+
+    private fun getNonEmptyEnteredOverdraftLimit() : Double{
+        return if (fragmentCreateAccount.etOverdraftLimit.text.isEmpty()){
+            OverdraftLimitType.LIMIT_1000.limit
+        } else fragmentCreateAccount.etOverdraftLimit.text.toString().toDouble()
+    }
+
+    private fun getNonEmptyEnteredSavingsBalance() : Double{
+        return if (fragmentCreateAccount.etSavingsBalance.text.isEmpty()){
+            0.0
+        } else fragmentCreateAccount.etSavingsBalance.text.toString().toDouble()
+    }
 
     private fun updateAppAccountsAndOwners(){
         if (areFieldsClientFilled && areFieldsAccountFilled) {
@@ -188,24 +216,4 @@ class DashboardActivityBank : DashboardActivity() {
             this.finish()
         }
     }
-
-    /**
-    override fun onDestroy() {
-        super.onDestroy()
-
-        MainActivity.startAnimationClientContainer(
-                MainActivity.containerClientOnlyCheckingAccount
-        )
-
-        MainActivity.startAnimationClientContainer(
-                MainActivity.containerClientOnlySavingsAccount
-        )
-
-        MainActivity.startAnimationClientContainer(
-                MainActivity.containerClientBothCheckingAndSavingsAccount
-        )
-
-    }
-     **/
-
 }

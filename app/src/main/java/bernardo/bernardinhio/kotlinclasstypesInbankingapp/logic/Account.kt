@@ -11,7 +11,7 @@ abstract class Account(
         var savingsBalance : Double = 0.toDouble(),
         var yearlyInterestRate : Double = SystemData.yearlyInterestRate,
         var checkingBalance : Double = 0.toDouble(),
-        var overdraftLimit : Double = 1000.0
+        var overdraftLimit : Double = OverdraftLimitType.LIMIT_1000.limit
 ) {
 
     companion object {
@@ -47,6 +47,7 @@ enum class AccountType(val type : String){
     UNDEFINED("")
 }
 
+// enum class allowing choosing overdraft limit according to salary range
 enum class OverdraftLimitType(val limit : Double, val salaryLess : Double){
     LIMIT_1000(1000.0, 1000.0),
     LIMIT_1600(1600.0, 2350.0),

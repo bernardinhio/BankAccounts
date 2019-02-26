@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/rectangle_light_yellow_inside_border_black"
-    android:id="@+id/cl_container_activity_dashboard">
+    android:id="@+id/cl_container_activity_dashboard"
+    tools:context=".view.DashboardActivityClientOnlySavingsAccount">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +20,6 @@
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:textStyle="bold"
-                android:onClick="closeActivityBank"
                 android:layout_margin="5sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
                 android:textSize="20sp"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
-                android:onClick="closeActivityBank"
+                android:onClick="closeDashboardActivity"
                 android:background="@drawable/rectangle_button_red_inside_border_black"
                 android:layout_margin="5sp"
                 android:layout_width="wrap_content"
@@ -71,7 +71,7 @@
                 android:onClick="withdrawMoney"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/interest_type"/>*
+                app:layout_constraintTop_toBottomOf="@id/interest_type"/>
             <Button
                 android:id="@+id/add_money"
                 android:onClick="addMoney"

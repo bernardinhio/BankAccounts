@@ -6,15 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.data.SystemData
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.CheckingAccount
+import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.OverdraftLimitType
 
 class FragmentCreateAccount : Fragment(){
 
     lateinit var radioGroupAccountType : RadioGroup
+    lateinit var rbTypeChecking : RadioButton
+    lateinit var rbTypeSavings: RadioButton
+    lateinit var rbTypeCheckingAndSavings : RadioButton
     lateinit var etCheckingBalance : EditText
     lateinit var etOverdraftLimit : EditText
     lateinit var etSavingsBalance : EditText
@@ -29,11 +34,15 @@ class FragmentCreateAccount : Fragment(){
         initializeViews(viewInflated)
         setUiDefaultValues()
         setRadioGroupCheckedListener()
+        showOnlyNonAlreadyCreatedAccountTypes()
         return viewInflated
     }
 
     private fun initializeViews(viewInflated: View) {
         radioGroupAccountType = viewInflated.findViewById(R.id.rg_account_type)
+        rbTypeChecking = viewInflated.findViewById(R.id.rb_type_checking)
+        rbTypeSavings = viewInflated.findViewById(R.id.rb_type_savings)
+        rbTypeCheckingAndSavings = viewInflated.findViewById(R.id.rb_type_checking_and_savings)
         etCheckingBalance = viewInflated.findViewById(R.id.et_checking_balance)
         etOverdraftLimit = viewInflated.findViewById(R.id.et_overdraft_limit)
         etSavingsBalance = viewInflated.findViewById(R.id.et_savings_balance)
@@ -48,9 +57,7 @@ class FragmentCreateAccount : Fragment(){
         val defaultCheckingAccount = CheckingAccount()
         // it can also be SavingsAccount because the default values are set in
         // the abstract super class which we cannot initialize
-        etCheckingBalance.setText(defaultCheckingAccount.checkingBalance.toString())
-        etOverdraftLimit.setText(defaultCheckingAccount.overdraftLimit.toString())
-        etSavingsBalance.setText(defaultCheckingAccount.savingsBalance.toString())
+        etOverdraftLimit.setText(OverdraftLimitType.LIMIT_1000.limit.toString())
         etYearlyInterestRate.setText(SystemData.yearlyInterestRate.toString())
     }
 
@@ -75,38 +82,36 @@ class FragmentCreateAccount : Fragment(){
                 })
     }
 
-    private fun showCheckingFields(show: Boolean) {
-        when(show){
-            true -> {
-                etCheckingBalance.visibility = View.VISIBLE
-                etOverdraftLimit.visibility = View.VISIBLE
-                tvLabelCheckingBalance.visibility = View.VISIBLE
-                tvLabelOverdraftLimit.visibility = View.VISIBLE
-            }
-            false -> {
-                etCheckingBalance.visibility = View.GONE
-                etOverdraftLimit.visibility = View.GONE
-                tvLabelCheckingBalance.visibility = View.GONE
-                tvLabelOverdraftLimit.visibility = View.GONE
-            }
+    // just hide the types of radioButtons that was not initialized
+    // and that represent the type of account to be created
+    // for the UI, so it won't bhe created
+    private fun showOnlyNonAlreadyCreatedAccountTypes(){
+        SystemData.accountOnlyChecking?.run {
+            rbTypeChecking.visibility = View.GONE
+            rbTypeChecking.isChecked = false
+        }
+        SystemData.accountOnlySavings?.run {
+            rbTypeSavings.visibility = View.GONE
+            rbTypeSavings.isChecked = false
+        }
+        SystemData.accountBothCheckingAndSavings?.run {
+            rbTypeCheckingAndSavings.visibility = View.GONE
+            rbTypeCheckingAndSavings.isChecked = false
         }
     }
 
+    private fun showCheckingFields(show: Boolean) {
+        etCheckingBalance.visibility = if (show) View.VISIBLE else View.GONE
+        etOverdraftLimit.visibility = if (show) View.VISIBLE else View.GONE
+        tvLabelCheckingBalance.visibility = if (show) View.VISIBLE else View.GONE
+        tvLabelOverdraftLimit.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
     private fun showSavingsFields(show: Boolean) {
-        when(show){
-            true -> {
-                etSavingsBalance.visibility = View.VISIBLE
-                etYearlyInterestRate.visibility = View.VISIBLE
-                tvLabelSavingsBalance.visibility = View.VISIBLE
-                tvLabelYearlyInterestRate.visibility = View.VISIBLE
-            }
-            false -> {
-                etSavingsBalance.visibility = View.GONE
-                etYearlyInterestRate.visibility = View.GONE
-                tvLabelSavingsBalance.visibility = View.GONE
-                tvLabelYearlyInterestRate.visibility = View.GONE
-            }
-        }
+        etSavingsBalance.visibility = if (show) View.VISIBLE else View.GONE
+        etYearlyInterestRate.visibility = if (show) View.VISIBLE else View.GONE
+        tvLabelSavingsBalance.visibility = if (show) View.VISIBLE else View.GONE
+        tvLabelYearlyInterestRate.visibility = if (show) View.VISIBLE else View.GONE
     }
 
 }

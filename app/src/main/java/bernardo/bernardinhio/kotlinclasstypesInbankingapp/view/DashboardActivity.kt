@@ -28,7 +28,7 @@ open class DashboardActivity : FragmentActivity(){ // should be FragmentActivity
     }
 
     // common to all dashboard activities button close same id
-    fun closeActivityBank(view : View){
+    fun closeDashboardActivity(view : View){
         confirmLeavingActivity()
     }
 

@@ -10,12 +10,12 @@ import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.Account
 class DashboardActivityClientOnlySavingsAccount : DashboardActivity() {
 
     private val accountOnlySavings : Account = SystemData.accountOnlySavings!!
-    private val accountBothCheckingAndSavings : Account = SystemData.accountBothCheckingAndSavings!!
+    private val accountBothCheckingAndSavings : Account? = SystemData.accountBothCheckingAndSavings
     private val yearlyInterestRate : Double = accountOnlySavings.yearlyInterestRate
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dashboard_client_savings_account)
+        setContentView(R.layout.activity_dashboard_client_only_savings_account)
         setActivityDimensions()
     }
 

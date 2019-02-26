@@ -12,45 +12,48 @@ import android.widget.TextView
 
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.data.SystemData
+import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.AccountType
 
 class MainActivity : AppCompatActivity() {
 
-    private var animationClientContainer: Animation? = null
-    private var containerClientOnlyCheckingAccount: ConstraintLayout? = null
-    private var containerClientOnlySavingsAccount: ConstraintLayout? = null
-    private var containerClientBothCheckingAndSavingsAccount: ConstraintLayout? = null
+    lateinit var btnDashboardBank : Button
+    lateinit var animationClientContainer: Animation
+    lateinit var containerClientOnlyCheckingAccount: ConstraintLayout
+    lateinit var containerClientOnlySavingsAccount: ConstraintLayout
+    lateinit var containerClientBothCheckingAndSavingsAccount: ConstraintLayout
 
-    private var ownerInfoOnlySavings: TextView? = null
-    private var ownerInfoOnlyChecking: TextView? = null
-    private var ownerInfoBothSavingsAndChecking: TextView? = null
-    private var accountInfoOnlySavings: TextView? = null
-    private var accountInfoOnlyChecking: TextView? = null
-    private var accountInfoBothSavingsAndChecking: TextView? = null
-    private var consoleMessages: TextView? = null
-
-    private var buttonActionOnlySavings: Button? = null
-    private var buttonActionOnlyChecking: Button? = null
-    private var buttonActionBothSavingsAndChecking: Button? = null
+    lateinit var tvOwnerInfoOnlySavings: TextView
+    lateinit var tvOwnerInfoOnlyChecking: TextView
+    lateinit var tvOwnerInfoBothSavingsAndChecking: TextView
+    lateinit var tvAccountInfoOnlySavings: TextView
+    lateinit var tvAccountInfoOnlyChecking: TextView
+    lateinit var tvAccountInfoBothSavingsAndChecking: TextView
+    lateinit var tvConsoleMessages: TextView
+    lateinit var btnActionsOnlySavingsAccount: Button
+    lateinit var btnActionsOnlyCheckingAccount: Button
+    lateinit var btnActionsBothSavingsAndCheckingAccount: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initializeView()
+        setButtonDashboardBankClickListener()
         setupClientsContainersAnimation()
     }
 
     private fun initializeView() {
-        ownerInfoOnlySavings = findViewById(R.id.owner_only_savings)
-        ownerInfoOnlyChecking = findViewById(R.id.owner_only_checking)
-        ownerInfoBothSavingsAndChecking = findViewById(R.id.owner_both_savings_and_checking)
-        accountInfoOnlySavings = findViewById(R.id.account_only_savings)
-        accountInfoOnlyChecking = findViewById(R.id.account_only_checking)
-        accountInfoBothSavingsAndChecking = findViewById(R.id.account_both_savings_and_checking)
-        consoleMessages = findViewById(R.id.tv_result)
-        buttonActionOnlySavings = findViewById(R.id.bt_dashboard_savings)
-        buttonActionOnlyChecking = findViewById(R.id.bt_dashboard_checking)
-        buttonActionBothSavingsAndChecking = findViewById(R.id.bt_dashboard_savings_and_checking)
+        btnDashboardBank = findViewById(R.id.bt_dashboard_bank)
+        tvOwnerInfoOnlySavings = findViewById(R.id.owner_only_savings)
+        tvOwnerInfoOnlyChecking = findViewById(R.id.owner_only_checking)
+        tvOwnerInfoBothSavingsAndChecking = findViewById(R.id.owner_both_savings_and_checking)
+        tvAccountInfoOnlySavings = findViewById(R.id.account_only_savings)
+        tvAccountInfoOnlyChecking = findViewById(R.id.account_only_checking)
+        tvAccountInfoBothSavingsAndChecking = findViewById(R.id.account_both_savings_and_checking)
+        tvConsoleMessages = findViewById(R.id.tv_result)
+        btnActionsOnlySavingsAccount = findViewById(R.id.bt_dashboard_savings)
+        btnActionsOnlyCheckingAccount = findViewById(R.id.bt_dashboard_checking)
+        btnActionsBothSavingsAndCheckingAccount = findViewById(R.id.bt_dashboard_savings_and_checking)
     }
 
     /**
@@ -64,54 +67,91 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onResume() {
         super.onResume()
-        when (SystemData.accountModified.type) {
-            "checking" -> {
+        when (SystemData.accountModified) {
+            AccountType.CHECKING -> {
                 updateUiCheckingOnlyAccount()
                 startAnimationClientContainer(containerClientOnlyCheckingAccount!!)
             }
-            "savings" -> {
+            AccountType.SAVINGS -> {
                 updateUiSavingsOnlyAccount()
                 startAnimationClientContainer(containerClientOnlySavingsAccount!!)
             }
-            "checking_and_savings" -> {
+            AccountType.CHECKING_AND_SAVINGS -> {
                 updateUiBothCheckingAndSavingsAccount()
                 startAnimationClientContainer(containerClientBothCheckingAndSavingsAccount!!)
             }
-            else -> {
-            }
+        }
+        // if all 3 components are created then don't allow Bank dashboard
+        // to create new ones but instead allow her to rest all data
+        if(SystemData.accountOnlyChecking != null && SystemData.accountOnlySavings != null && SystemData.accountBothCheckingAndSavings != null){
+            btnDashboardBank.tag = "restartActivity"
+            btnDashboardBank.text = "Restart"
         }
     }
 
     private fun updateUiCheckingOnlyAccount() {
-        ownerInfoOnlyChecking!!.visibility = View.VISIBLE
-        accountInfoOnlyChecking!!.visibility = View.VISIBLE
-        buttonActionOnlyChecking!!.visibility = View.VISIBLE
-        ownerInfoOnlyChecking!!.text = "Owner: " + SystemData.ownerOnlyCheckingAccount!!.firstName + " " + SystemData.ownerOnlyCheckingAccount!!.lastName
-        accountInfoOnlyChecking!!.text = "Checking Balance: " + SystemData.accountOnlyChecking!!.checkingBalance
-        consoleMessages!!.text = consoleMessages!!.text.toString() + "\nBank created Checking only account"
+        showAccountOnlyCheckingDetails(true)
+        tvOwnerInfoOnlyChecking.text = "Owner: ${SystemData.ownerOnlyCheckingAccount?.firstName} ${SystemData.ownerOnlyCheckingAccount?.lastName}"
+        tvAccountInfoOnlyChecking.text = "Checking Balance: ${SystemData.accountOnlyChecking?.checkingBalance} € \nOverdraft Limit: ${SystemData.accountOnlyChecking?.overdraftLimit} €"
+        tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created Checking-only account"
+    }
+
+    private fun showAccountOnlyCheckingDetails(show : Boolean){
+        tvOwnerInfoOnlyChecking.visibility = if (show) View.VISIBLE else View.GONE
+        tvAccountInfoOnlyChecking.visibility = if (show) View.VISIBLE else View.GONE
+        btnActionsOnlyCheckingAccount.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun updateUiSavingsOnlyAccount() {
-        ownerInfoOnlySavings!!.visibility = View.VISIBLE
-        accountInfoOnlySavings!!.visibility = View.VISIBLE
-        buttonActionOnlySavings!!.visibility = View.VISIBLE
-        ownerInfoOnlySavings!!.text = "Owner: " + SystemData.ownerOnlySavingsAccount!!.firstName + " " + SystemData.ownerOnlySavingsAccount!!.lastName
-        accountInfoOnlySavings!!.text = "Savings Balance: " + SystemData.accountOnlySavings!!.savingsBalance
-        consoleMessages!!.text = consoleMessages!!.text.toString() + "\nBank created Savings only account"
+        showAccountOnlySavingsDetails(true)
+        tvOwnerInfoOnlySavings.text = "Owner: ${SystemData.ownerOnlySavingsAccount?.firstName} ${SystemData.ownerOnlySavingsAccount?.lastName}"
+        tvAccountInfoOnlySavings.text = "Savings Balance: ${SystemData.accountOnlySavings?.savingsBalance} €"
+        tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created Savings-only account"
+    }
+
+    private fun showAccountOnlySavingsDetails(show : Boolean){
+        tvOwnerInfoOnlySavings.visibility = if (show) View.VISIBLE else View.GONE
+        tvAccountInfoOnlySavings.visibility = if (show) View.VISIBLE else View.GONE
+        btnActionsOnlySavingsAccount.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun updateUiBothCheckingAndSavingsAccount() {
-        ownerInfoBothSavingsAndChecking!!.visibility = View.VISIBLE
-        accountInfoBothSavingsAndChecking!!.visibility = View.VISIBLE
-        buttonActionBothSavingsAndChecking!!.visibility = View.VISIBLE
-        ownerInfoBothSavingsAndChecking!!.text = "Owner: " + SystemData.ownerBothCheckingAndSavingsAccount!!.firstName + " " + SystemData.ownerBothCheckingAndSavingsAccount!!.lastName
-        accountInfoBothSavingsAndChecking!!.text = "Checking Balance: " + SystemData.accountBothCheckingAndSavings!!.checkingBalance + "\n" + "Savings Balance: " + SystemData.accountBothCheckingAndSavings!!.savingsBalance
-        consoleMessages!!.text = consoleMessages!!.text.toString() + "\nBank created both Checking & Savings account"
+        showAccountBothCheckingAndSavingsDetails(true)
+        tvOwnerInfoBothSavingsAndChecking.text = "Owner: ${SystemData.ownerBothCheckingAndSavingsAccount?.firstName} ${SystemData.ownerBothCheckingAndSavingsAccount?.lastName}"
+        tvAccountInfoBothSavingsAndChecking.text = "Checking Balance: ${SystemData.accountBothCheckingAndSavings?.checkingBalance} €\nSavings Balance: ${SystemData.accountBothCheckingAndSavings?.savingsBalance} €  \n" +
+                "Overdraft Limit: ${SystemData.accountBothCheckingAndSavings?.overdraftLimit} €"
+        tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created both Checking & Savings account"
     }
 
+    private fun showAccountBothCheckingAndSavingsDetails(show : Boolean){
+        tvOwnerInfoBothSavingsAndChecking.visibility = if (show) View.VISIBLE else View.GONE
+        tvAccountInfoBothSavingsAndChecking.visibility = if (show) View.VISIBLE else View.GONE
+        btnActionsBothSavingsAndCheckingAccount.visibility = if (show) View.VISIBLE else View.GONE
+    }
 
-    fun openDashboardBank(view: View) {
-        startActivity(Intent(this, DashboardActivityBank::class.java))
+    // whe, the 3 Ui components and 3 types of accounts are initialized
+    // then don't show the Bank dashboard on click again but restart
+    private fun setButtonDashboardBankClickListener(){
+        btnDashboardBank.setOnClickListener {
+            if(btnDashboardBank.tag.equals("openDashboardBank")){
+                startActivity(Intent(this, DashboardActivityBank::class.java))
+            } else if(btnDashboardBank.tag.equals("restartActivity")){
+                restartAppSimulation()
+            }
+        }
+    }
+
+    private fun restartAppSimulation() {
+        containerClientOnlySavingsAccount.clearAnimation()
+        containerClientOnlyCheckingAccount.clearAnimation()
+        containerClientBothCheckingAndSavingsAccount.clearAnimation()
+        btnDashboardBank.tag = "openDashboardBank"
+        btnDashboardBank.text = "Start"
+        SystemData.resetData()
+        showAccountOnlyCheckingDetails(false)
+        showAccountOnlySavingsDetails(false)
+        showAccountBothCheckingAndSavingsDetails(false)
+        tvConsoleMessages.text = ""
     }
 
     fun openDashboardSavingsAccount(view: View) {

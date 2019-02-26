@@ -2,9 +2,14 @@ package bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic
 
 class SavingsAccount() : Account() {
 
-    constructor(savingsBalance : Double) : this()
+    constructor(savingsBalance : Double) : this(){
+        this.savingsBalance = savingsBalance
+    }
 
-    constructor(savingsBalance : Double, yearlyInterestRate : Double) : this()
+    constructor(savingsBalance : Double, yearlyInterestRate : Double) : this() {
+        this.savingsBalance = savingsBalance
+        this.yearlyInterestRate = yearlyInterestRate
+    }
 
     private var monthlyInterestRate : Double = yearlyInterestRate /12
     private var monthlyBenefit : Double = super.totalBalance * monthlyInterestRate

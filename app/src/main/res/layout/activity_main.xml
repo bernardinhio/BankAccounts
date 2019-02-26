@@ -267,8 +267,8 @@
             app:layout_constraintRight_toRightOf="parent"/>
         <Button
             android:id="@+id/bt_dashboard_bank"
-            android:text="Start"
-            android:onClick="openDashboardBank"
+            android:text="Create account"
+            android:tag="openDashboardBank"
             android:textAllCaps="false"
             android:textStyle="bold"
             android:textSize="15sp"
