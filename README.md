@@ -1,30 +1,16 @@
-In this App I show 2 major types of bank accounts: Checking account and Savings account, also a 3rd kind of types that is a combination of both.
+In this App I show 2 major types of bank accounts: CheckingAccount and SavingsAccount, also a 3rd kind of that is a combination of both for clients who have the 2 types. This App demonstrates how these different types of accounts are created and how they interact with each other’s.
 
-The “concrete” 2 classes are “CheckingAccount” and “SavingsAccount”, they do different things  but they share common functionalities. Also a bank client with a “CheckingAccount” can one day upgrade to have a way to have a Checking and a Saving accounts or a client with a Savings account can one day also upgrade to have a Savings and Checking accounts.
+I wanted to show how Kotlin is powerful when we use it in Android projects, especially how we can have implicitly contractors created for us when we use a primary constructor in the head of the class that has its parameters initialized by default values. This alone can allow us to call any constructor with any number of parameters without explicitly overloading constructors.
 
-This is why I decided the use the concept of abstract class to implement the logic of bank accounts. The reason is that when I make an abstract superclass “Account” that I use later to create subclasses from it “CheckingAccount” and “SavingsAccount”, then I can put in this abstract superclass some methods that have implementation and that will be called automatically by any object of any subclass. Meanwhile abstract class allows me to force all subclass to override the methods that are marked “abstract”.
+Another powerful point that goes hand in hand with the parameters initialized by default values is the concept of “named parameters”. This allows us to pass any order we want of parameters to a function without caring what is its original signature.
 
-In my program, I created an abstract class “Account” and 2 subclasses from it: “CheckingAccount” and “SavingsAccount”.
+Both concepts allow us to save a lot of boilerplate code!
 
-These 2 subclasses should override some methods that are marked “abstract” for example getBalance() but will do completely different things because the “CheckingAccount” will return the “checkingBalance” and the “SavingsAccount” will return the “savingBalance”.
+I wanted to show how the concept of abstract methods can be applied in my context, because the different types of bank accounts have some common functionalities that have the same implementations and some others methods that do different behavior but should necessary exist in all the classes. This is where the abstract class concept from Kotlin can help us. In fact Kotlin also has abstract variables which doesn’t exist in Java!
 
-But what if the account is at the same time “Checking” and “Savings”? This is why I decided to add a property to the abstract superclass “Account” that indicates the type of the account and according to that types, particularly when the account is at the same times “Checking” and ‘Saving”, to behave differently such as when getBalance() it will return the sum of “checkingBalance” and “savingsBalance”.
+Concerning the App, I made a quite nice concept of interaction, I used Fragments inflations and animations and many SDK nice topics you can see in the screenshots
 
-This allows me to always create as in real life as such “at the same time Checking and Savings” account using any of the constructors of “CheckingAccount” or “SavingsAccount” classes, then upgrading that account at any time when the client wants to become both types “Checking” and “Savings”
-
-For this scenario, I designed the abstract superclass “Account” to hold all the fields (or properties) existing in the both classes “CheckingAccount” and “SavingsAccount”, but that are initially set with default values such as  “checkingBalance” and “savingsBalance” equals to Zero. This allows me to be able later to convert any account of one type, to become both types at the same time.
-
-The constructors of each of these subclasses initialize the concerning fields of the abstract superclass, then when needed by the client, we can initialize the fields related to the other type of subclass. When this is the case, then I update the type of the account from “Checking” or “Savings” to “CheckingAndSavings”. So every account instance created using whether the constructor of  “CheckingAccount” or the constructor of “SavingsAccount” will be one day of types “Checking” or “Savings” or a combination of both when the account is upgraded to be “CheckingAndSavings”.
-
-In kotlin it is much easier to create instances using a set of parameters from a parent superclass and then later update or set other parameters if we need. The power of Kotlin over Java are so many, one of them is called “constructor with “default values of parameters”, this allows you to call all the constructors possible with any combination of parameters and number of parameters by just reducing one or more parameters from the end, or by using the other powerful concept in Kotlin which is “named parameters” and this allows you to combine the first concept concept “constrictors with default values” and “named parameters” to put in your constructor call any order of parameters and any number of parameters 
-
-My software design approach in this very specific case of being able to convert from one type of account to include both types, I didn’t add specific properties to the subclasses in my app any extra properties, but I just allowed the constructors of subclasses to initialize the properties of superclass. This is how I can offer the possibility to convert, or to “add” a Checking” account to an existing “Savings” account, or a “Savings” account to an existing “Checking” account. 
-
-As in real life when we go to the bank we most probably open an account of type “CheckingAccount”, then maybe at some point of time we say that we would like to start “saving money” and get benefits from them. So in that case we need to create a “Saving” account using our current “Checking” account. In that case I make 2 method that is allows the conversion by just updating the type of account in superclass and initializing the related properties.
-
-To convert from a “CheckingAccount” to a “both checking & saving” account, I update the type of account in superclass “Account” and then I initialize the savingBalance of the superclass by taken money from the checkingbalance (or by taking extra money) to add to the savingsBalance and I set the yearlyInterestRate so I can later get / calculate the yearlyBenefit and monthlyBenefit
-
-To convert from a “SavingsAccount” to a “both savings and checking” account, I update the type of account in the superclass “Account” and then I initialize the checkingBalance of the superclass by taking money from the savingsBalance (or by taking extra money) to add to the checkingBalance and I set the overdraftLimit for that client (usually according to his salary range) and I set the remainingOverdraft that tells how much yet the account owner can withdraw from the overdraftLimit
+I made a bank component on the App represented by Square that will initialize / create the 3 types of Accounts
 
 How I proceeded and decided which methods a shared and do the same for any type of account and which have same name but do different things and which have different names but exist only for a certain type of accounts? I started by writing all the possible methods that can exist, then I found out for each method which type of account is concerned. Here is how I did:
 
@@ -47,43 +33,6 @@ getBenefitPerMonth ()    for S  CS
 
 convertMoneyToChecking()   for CS
 convertMoneyToSavings()    for CS
-
-
------ Methods design -----
-
-getBalance()  
-
-It is for all the types of accounts C  S  CS
-- When it is called by a type c, then it returns the checkingBalance
-- When it is called by a type s, then it returns the savingsBalance
-- When it is called by a type c, then it returns the checkingBalance + savingsBalance
-*** So it’s abstract written in abstract superclass “Account” then overridden in “CheckingAccount” and “SavingsAccount”
-
-addMoney()  
-
-It is for all the types of accounts C  S  CS
-- When it is called by a type c, then it will add money to the checkingBalance
-- When it is called by a type s, then it will add money to the savingsBalance
-- When it is called by a type c, then it will add money to the checkingBalance only
-*** So it’s abstract written in abstract superclass “Account” then overridden in “CheckingAccount” and “SavingsAccount”
-
-withdrawMoney()
-
-It is for all the types of accounts C  S  CS
-- When it is called by a type c, then it will withdraw money from the (checkingBalance + remainingOverdraft). The overdraftLimit is what the bank allows to withdraw when our checkingBalance reached 0
-- When it is called by a type s, then it will withdraw money from the savingsBalance till it finishes and if savingsBalance is not enough, then don’t complete the withdrawal 
-- When it is called by a type c, then it will withdraw money from the checkingBalance till it finishes and if checkingBalance not enough, then withdraw from the remainingOverdraft and if remainingOverdraft is not enough, then withdraw from the savingsBalance 
-*** So it’s abstract written in abstract superclass “Account” then overridden in “CheckingAccount” and “SavingsAccount”
-
-transferMoneyToSomeone()  
-
-It is for all the types of accounts C  S  CS
-- When it is called by a type c, then it will transfer to another person account money from the (checkingBalance + remainingOverdraft). The overdraftLimit is what the bank allows to withdraw when our checkingBalance reached 0
-- When it is called by a type s, then it will transfer to another person account money from the savingsBalance till it finishes and if savingsBalance is not enough, then don’t complete the transfer
-- When it is called by a type c, then it will transfer to another person account money from the checkingBalance till it finishes and if checkingBalance not enough, then withdraw from the remainingOverdraft and if remainingOverdraft is not enough, then withdraw from the savingsBalance 
-*** So it’s abstract written in abstract superclass “Account” then overridden in “CheckingAccount” and “SavingsAccount”
-
-.... more
 
 
 ------------ screenshots --------------
