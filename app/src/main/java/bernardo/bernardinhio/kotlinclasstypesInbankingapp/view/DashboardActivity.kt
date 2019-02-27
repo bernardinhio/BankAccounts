@@ -1,14 +1,10 @@
 package bernardo.bernardinhio.kotlinclasstypesInbankingapp.view
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.graphics.Point
-import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.FragmentActivity
 import android.view.View
-import android.view.WindowManager
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
 
 open class DashboardActivity : FragmentActivity(){ // should be FragmentActivity to allow floating popop effect
@@ -32,46 +28,26 @@ open class DashboardActivity : FragmentActivity(){ // should be FragmentActivity
         confirmLeavingActivity()
     }
 
-    // comon to all dashboard activities
-    private fun confirmLeavingActivity() : Boolean{
-        var shouldAllowBack = false
+    // common to all dashboard activities
+    override fun onBackPressed() {
+        confirmLeavingActivity()
+    }
+
+    // common to all dashboard activities
+    open protected fun confirmLeavingActivity() : Boolean{
+        var doFinishActivity = false
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Sure you want to stop?")
         builder.setMessage("If you stop it, all the information recorded will be lost")
         builder.setPositiveButton("YES") { dialog, which ->
             this.finish()
-            animateAffectedClient()
-            shouldAllowBack = true
+            doFinishActivity = true
         }
         builder.setNeutralButton("CANCEL") {
             dialog, which ->
             builder.setCancelable(true)
         }
         builder.show()
-        return shouldAllowBack
+        return doFinishActivity
     }
-
-    protected fun chooseBetweenGlobalClients(){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Pick a Client")
-                .setItems(R.array.three_clients,
-                        DialogInterface.OnClickListener { dialog, which ->
-                            // The 'which' argument contains the index position
-                            // of the selected item
-                        })
-        builder.create()
-    }
-
-    protected fun animateAffectedClient(){
-        // to develop later maybe shaking container one of the 4
-        // in MainActivity
-    }
-
-    // comon to all dashboard activities
-    override fun onBackPressed() {
-        confirmLeavingActivity()
-    }
-
-
-
 }

@@ -12,8 +12,4 @@ class Owner(
         val id : Long = System.currentTimeMillis() - "owner".length
 ){
 
-    fun transferMoneyToOwner(amount : Double, receiverOwner : Owner){
-
-        this.account?.checkingBalance
-    }
 }

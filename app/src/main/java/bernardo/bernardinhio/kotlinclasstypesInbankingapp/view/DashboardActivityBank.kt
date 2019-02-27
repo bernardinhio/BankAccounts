@@ -30,6 +30,8 @@ class DashboardActivityBank : DashboardActivity() {
     val fragmentCreateClient: FragmentCreateClient = FragmentCreateClient()
     val fragmentCreateAccount: FragmentCreateAccount = FragmentCreateAccount()
 
+    var processAborted : Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,6 +46,11 @@ class DashboardActivityBank : DashboardActivity() {
         btnCreateClient = findViewById<Button>(R.id.create_client)
         btnCreateAccount = findViewById<Button>(R.id.create_account)
 
+    }
+
+    override fun confirmLeavingActivity(): Boolean {
+        processAborted = super.confirmLeavingActivity()
+        return processAborted
     }
 
     fun changeBankYearlyInterestRate(view : View){
@@ -199,7 +206,7 @@ class DashboardActivityBank : DashboardActivity() {
     }
 
     private fun updateAppAccountsAndOwners(){
-        if (areFieldsClientFilled && areFieldsAccountFilled) {
+        if (areFieldsClientFilled && areFieldsAccountFilled && !processAborted) {
             when(newOwner.accountType){
                 AccountType.CHECKING -> {
                     SystemData.ownerOnlyCheckingAccount = newOwner

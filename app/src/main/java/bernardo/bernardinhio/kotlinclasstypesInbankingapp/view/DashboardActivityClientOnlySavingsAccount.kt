@@ -10,6 +10,8 @@ import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.Account
 
 class DashboardActivityClientOnlySavingsAccount : DashboardActivity() {
 
+    var processAborted : Boolean = false
+
     private val accountOnlySavings : Account = SystemData.accountOnlySavings!!
     private val accountBothCheckingAndSavings : Account? = SystemData.accountBothCheckingAndSavings
     private val yearlyInterestRate : Double = accountOnlySavings.yearlyInterestRate
@@ -19,6 +21,11 @@ class DashboardActivityClientOnlySavingsAccount : DashboardActivity() {
         setContentView(R.layout.activity_dashboard_client_only_savings_account)
         setActivityDimensions()
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+    }
+
+    override fun confirmLeavingActivity(): Boolean {
+        processAborted = super.confirmLeavingActivity()
+        return processAborted
     }
 
     // abstract
