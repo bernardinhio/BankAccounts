@@ -6,10 +6,9 @@ class SavingsAccount() : Account() {
         this.savingsBalance = savingsBalance
     }
 
-    constructor(savingsBalance : Double, yearlyInterestRate : Double, yearlyBenefit : Double) : this() {
+    constructor(savingsBalance : Double, yearlyInterestRate : Double) : this() {
         this.savingsBalance = savingsBalance
         this.yearlyInterestRate = yearlyInterestRate
-        this.yearlyBenefit = yearlyBenefit
     }
 
     private var monthlyInterestRate : Double = yearlyInterestRate /12

@@ -35,7 +35,7 @@ fun main(args : Array<String>){
     println(checking.checkingBalance)
     println(checking.overdraftLimit)
 
-    val savings = SavingsAccount(5666777.7, 3.43, 0.0)
+    val savings = SavingsAccount(5666777.7, 3.43)
     println(savings.savingsBalance)
     println(savings.yearlyInterestRate)
 
@@ -105,7 +105,7 @@ fun main(args : Array<String>){
 
     val savings1 : SavingsAccount = SavingsAccount()
     val savings2 : SavingsAccount = SavingsAccount(200.0)
-    val savings3 : SavingsAccount = SavingsAccount(200.0, 5.0, 0.0)
+    val savings3 : SavingsAccount = SavingsAccount(200.0, 5.0)
 
     // access superclass properties
     savings2.id

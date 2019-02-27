@@ -152,7 +152,9 @@ class DashboardActivityBank : DashboardActivity() {
     }
 
     private fun setupSavingsAccount() {
-        newAccount = SavingsAccount(getNonEmptyEnteredSavingsBalance())
+        newAccount = SavingsAccount(
+                getNonEmptyEnteredSavingsBalance(),
+                Account.yearlyInterestRate)
         // setters
         newAccount.type = AccountType.SAVINGS
         newAccount.owner = this.newOwner

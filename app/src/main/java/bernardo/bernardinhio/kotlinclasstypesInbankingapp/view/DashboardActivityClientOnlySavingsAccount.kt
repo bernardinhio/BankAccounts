@@ -34,10 +34,11 @@ class DashboardActivityClientOnlySavingsAccount : DashboardActivity() {
     fun withdrawMoney(view : View){}
 
     // both yearly or monthly (radio buttons)
-    fun getInterestPerYear(view : View){}
-    fun getInterestPerMonth(view : View){}
+    fun getInterestRatePerYear(view : View){}
+    fun getBenefitPerYear(view : View){}
+    fun getBenefitPerMonth(view : View){}
 
-    // to only to other account Savings type
+    // only if he is also of type CheckingAndSavings
     fun transferToSomeone(view : View){}
 
 }
