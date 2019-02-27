@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
                 "Checking Balance: ${SystemData.accountBothCheckingAndSavings?.checkingBalance} €" +
                         "\nOverdraft Limit: ${SystemData.accountBothCheckingAndSavings?.overdraftLimit} €" +
                         "\nSavings Balance: ${SystemData.accountBothCheckingAndSavings?.savingsBalance} €" +
-                        "\nInterest/year: ${SystemData.accountOnlySavings?.yearlyInterestRate}%"
+                        "\nInterest/year: ${SystemData.accountBothCheckingAndSavings?.yearlyInterestRate}%"
         tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created both Checking & Savings account"
     }
 
