@@ -145,5 +145,6 @@ Create only SavingAccount for this App
 
 When finish, update Homepage and show animation and update console
 
-![screenshot_1551250892](https://user-images.githubusercontent.com/20923486/53472364-b426e080-3a67-11e9-9bee-259a6e1f4ec2.png)
+<img width="720" alt="screenshot_1551250892" src="https://user-images.githubusercontent.com/20923486/53473200-02d57a00-3a6a-11e9-82b6-9e0f1d16f221.png">
+
 
