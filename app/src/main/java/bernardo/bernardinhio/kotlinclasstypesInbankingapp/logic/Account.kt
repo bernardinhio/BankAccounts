@@ -3,13 +3,8 @@ package bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic
 abstract class Account(
         val id : Long = System.currentTimeMillis() - "account".length,
         val dateCreated : String = Account.getFormattedTime(System.currentTimeMillis()),
-        var type : AccountType = AccountType.UNDEFINED,
-        var owner : Owner = Owner(),
-        var savingsBalance : Double = 0.toDouble(),
-        var yearlyInterestRate : Double = 0.toDouble(),
-        var checkingBalance : Double = 0.toDouble(),
-        var overdraftLimit : Double = OverdraftLimitType.LIMIT_1000.limit,
-        var remainingOverdraft : Double = overdraftLimit
+        open var type : AccountType = AccountType.UNDEFINED,
+        var owner : Owner = Owner()
 ) {
 
     companion object {
@@ -21,30 +16,13 @@ abstract class Account(
         }
     }
 
-    // abstract
-    // SavingsAccount returns savingBalance
-    // CheckingAccount returns checkingBalance
-    // CheckingAndSavingsAccount returns (savingBalance + checkingBalance)
     abstract fun getBalance() : Double
-
-    // abstract
-    // SavingsAccount adds to savingBalance
-    // CheckingAccount adds to checkingBalance
-    // CheckingAndSavingsAccount adds to checkingBalance
-    abstract fun addMoney(amount : Double)
-
-
-
-    // not abstract
-    // SavingsAccount withdraw from savingBalance
-    // CheckingAccount withdraw from checkingBalance
-    // CheckingAndSavingsAccount withdraw first from
-    // checkingBalance then if not enough from SavingsAccount
-    abstract fun withdrawMoney(amount : Double)
+    abstract fun addMoney(money : Double, toTypeIfSecondAccount : AccountType)
+    abstract fun withdrawMoney(money : Double, fromTypeIfSecondAccount : AccountType) : Boolean
+    abstract fun transferMoneyToSomeone() : Boolean
 
 
 }
-
 
 enum class AccountType(val type : String){
     CHECKING("checking"),

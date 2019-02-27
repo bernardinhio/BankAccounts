@@ -14,7 +14,7 @@ class DashboardActivityClientOnlySavingsAccount : DashboardActivity() {
 
     private val accountOnlySavings : Account = SystemData.accountOnlySavings!!
     private val accountBothCheckingAndSavings : Account? = SystemData.accountBothCheckingAndSavings
-    private val yearlyInterestRate : Double = accountOnlySavings.yearlyInterestRate
+    private val yearlyInterestRate : Double = Account.yearlyInterestRate
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

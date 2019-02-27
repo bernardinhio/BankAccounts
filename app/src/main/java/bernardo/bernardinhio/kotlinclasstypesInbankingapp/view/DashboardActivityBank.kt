@@ -149,42 +149,57 @@ class DashboardActivityBank : DashboardActivity() {
         newAccount = CheckingAccount(
                 getNonEmptyEnteredCheckingBalance(),
                 getNonEmptyEnteredOverdraftLimit(),
-                getNonEmptyEnteredOverdraftLimit()
+                getNonEmptyEnteredOverdraftLimit(),
+                AccountType.CHECKING
         )
         //setters
-        newAccount.type = AccountType.CHECKING
-        newAccount.owner = this.newOwner
+        newAccount.owner = newOwner
         newOwner.accountType = AccountType.CHECKING
-        newOwner.account = this.newAccount
+        newOwner.account = newAccount
     }
 
     private fun setupSavingsAccount() {
         newAccount = SavingsAccount(
                 getNonEmptyEnteredSavingsBalance(),
-                Account.yearlyInterestRate)
+                Account.yearlyInterestRate,
+                AccountType.SAVINGS
+        )
         // setters
-        newAccount.type = AccountType.SAVINGS
-        newAccount.owner = this.newOwner
+        newAccount.owner = newOwner
         newOwner.accountType = AccountType.SAVINGS
-        newOwner.account = this.newAccount
+        newOwner.account = newAccount
     }
 
     private fun setupCheckingSavingsAccount() {
-        // we can initialize using either CheckingAccount or SavingsAccount
-        newAccount = CheckingAccount()
-        newAccount.type = AccountType.CHECKING_AND_SAVINGS
-        newAccount.checkingBalance = getNonEmptyEnteredCheckingBalance()
-        newAccount.overdraftLimit = getNonEmptyEnteredOverdraftLimit()
-        newAccount.remainingOverdraft = getNonEmptyEnteredOverdraftLimit()
-        newAccount.savingsBalance = getNonEmptyEnteredSavingsBalance()
-        // Theoretically we should not be able to set an interest rate because
-        // banks have one Interest rate for all accounts, however for the
-        // purpose of App demonstration we don't know when such interest rate
-        // can be personalized according to customers wealth
-        newAccount.yearlyInterestRate = fragmentCreateAccount.etYearlyInterestRate.text.toString().toDouble()
-        newAccount.owner = this.newOwner
+        val checkingAccount : CheckingAccount
+        val savingsAccount : SavingsAccount
+
+        // create CheckingAccount of type CHECKING_AND_SAVINGS
+        checkingAccount = CheckingAccount(
+                getNonEmptyEnteredCheckingBalance(),
+                getNonEmptyEnteredOverdraftLimit(),
+                getNonEmptyEnteredOverdraftLimit(),
+                AccountType.CHECKING_AND_SAVINGS,
+                SavingsAccount()
+        )
+        // create SavingsAccount of type CHECKING_AND_SAVINGS
+        savingsAccount = SavingsAccount(
+                getNonEmptyEnteredSavingsBalance(),
+                fragmentCreateAccount.etYearlyInterestRate.text.toString().toDouble(),
+                AccountType.CHECKING_AND_SAVINGS,
+                checkingAccount
+        )
+
+        // each of checking and Savings accounts has dofferent IDs
+        checkingAccount.owner = this.newOwner
+        savingsAccount.owner = this.newOwner
+
+        newAccount = checkingAccount
+        //newAccount = savingsAccount // we can also because both are CHECKING_AND_SAVINGS
+
+        newOwner.account = newAccount
+
         newOwner.accountType = AccountType.CHECKING_AND_SAVINGS
-        newOwner.account = this.newAccount
     }
 
     private fun getNonEmptyEnteredCheckingBalance() : Double{
@@ -210,17 +225,17 @@ class DashboardActivityBank : DashboardActivity() {
             when(newOwner.accountType){
                 AccountType.CHECKING -> {
                     SystemData.ownerOnlyCheckingAccount = newOwner
-                    SystemData.accountOnlyChecking = newAccount
+                    SystemData.accountOnlyChecking = newAccount as CheckingAccount
                     SystemData.accountModified = AccountType.CHECKING
                 }
                 AccountType.SAVINGS -> {
                     SystemData.ownerOnlySavingsAccount = newOwner
-                    SystemData.accountOnlySavings = newAccount
+                    SystemData.accountOnlySavings = newAccount as SavingsAccount
                     SystemData.accountModified = AccountType.SAVINGS
                 }
                 AccountType.CHECKING_AND_SAVINGS -> {
                     SystemData.ownerBothCheckingAndSavingsAccount = newOwner
-                    SystemData.accountBothCheckingAndSavings = newAccount
+                    SystemData.accountBothCheckingAndSavings = newAccount as CheckingAccount
                     SystemData.accountModified = AccountType.CHECKING_AND_SAVINGS
                 }
             }

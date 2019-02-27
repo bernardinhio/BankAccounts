@@ -1,89 +1,111 @@
 package bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic
 
-class SavingsAccount() : Account() {
+/**
+ * By using a primary constructor in Kotlin with parameters
+ * initialized by default values, then we don't need to
+ * overload constructors so we can call all these:
+ *
+ * val savingsAccount = SavingsAccount()
+ * val savingsAccount = SavingsAccount(12345.4)
+ * val savingsAccount = SavingsAccount(12345.4, 3452.5)
+ * val savingsAccount = SavingsAccount(12345.4, 3452.5, AccountType.CHECKING_AND_SAVINGS)
+ * val savingsAccount = SavingsAccount(12345.4, 3452.5, AccountType.CHECKING_AND_SAVINGS, CheckingAccount())
+ */
+class SavingsAccount(
+        var savingsBalance : Double = 0.toDouble(),
+        var yearlyInterestRate : Double = 0.toDouble(),
+        override var type: AccountType = AccountType.SAVINGS,
+        var checkingAccount: CheckingAccount? = null
+) : Account(){
 
-    constructor(savingsBalance : Double) : this(){
-        this.savingsBalance = savingsBalance
+    /**
+     * we can create from the beginning an account that is
+     * of type CHECKING_AND_SAVINGS, or just SAVINGS
+     * that later we can upgrade to CHECKING_AND_SAVINGS
+     *
+     * example:
+     * val savingsAccount = CheckingAccount(AccountType.CHECKING_AND_SAVINGS)
+     */
+    constructor(type: AccountType) : this(){
+        this.type = type
     }
 
-    constructor(savingsBalance : Double, yearlyInterestRate : Double) : this() {
-        this.savingsBalance = savingsBalance
-        this.yearlyInterestRate = yearlyInterestRate
-    }
+    /**
+     * All combination of parameters in the constructor
+     * are allowed if we use the "named parameters"
+     * technique from Kotlin. Such as:
+     *
+     * val savingsAccount = SavingsAccount(savingsBalance = 12345.5, type = AccountType.SAVINGS)
+     */
 
-    private var monthlyInterestRate : Double = yearlyInterestRate /12
-
-    init {
-        super.type = checkIfTypeNeedsModification()
-    }
-
-    private fun checkIfTypeNeedsModification() : AccountType {
-        val returnedType = when(super.type){
-            AccountType.UNDEFINED -> AccountType.SAVINGS
-            AccountType.CHECKING -> AccountType.CHECKING_AND_SAVINGS
-            AccountType.CHECKING_AND_SAVINGS -> AccountType.CHECKING_AND_SAVINGS
-            AccountType.SAVINGS -> AccountType.SAVINGS
-        }
-        return returnedType
-    }
-
-    override fun getBalance(): Double {
-        return savingsBalance
-    }
-
-    override fun addMoney(amount: Double) {
-        savingsBalance += amount
-    }
-
-    // for accountBothCheckingAndSavings
-    // AND for accountOnlySavings
-    override fun withdrawMoney(amount: Double) {
-        when(this.type){
-            AccountType.CHECKING_AND_SAVINGS -> {
-                if (amount <= savingsBalance){
-                    savingsBalance -= amount
-                } else{
-                    println("You can't withdraw $amount, it's more than your entire savings: $savingsBalance !")
-                    println("Do you want to withdraw from your Checking balance? sure? You have there: $checkingBalance !")
-                    if (confirmWithdrawFromSavingsAccount()){
-                        withdrawFromCheckingAccount(amount)
-                    }
-                }
-            }
-            AccountType.SAVINGS -> {
-                if (amount <= savingsBalance){
-                    savingsBalance -= amount
-                } else{
-                    println("You can't withdraw $amount, it's more than your entire savings: $savingsBalance !")
-                }
-            }
-        }
-
-    }
-
-    private fun confirmWithdrawFromSavingsAccount() : Boolean{
-        val confirmed : Boolean = true
-        return confirmed
-    }
-
-    // only for accountBothCheckingAndSavings
-    private fun withdrawFromCheckingAccount(amount: Double) {
-        if (this.type == AccountType.CHECKING_AND_SAVINGS){
-            if (amount <= checkingBalance + overdraftLimit){
-                checkingBalance -= amount
-            } else println("Sorry, your checking-balance $checkingBalance aren't enough for withdrawing $amount")
+    override fun getBalance() : Double{
+        return when(type){
+            AccountType.SAVINGS -> savingsBalance
+            AccountType.CHECKING_AND_SAVINGS -> savingsBalance + checkingAccount?.checkingBalance!!
+            else -> -1.toDouble()
         }
     }
 
-    // only for accountBothCheckingAndSavings
-    fun convertToCheckingAccount(amount : Double){
-        if (this.type == AccountType.CHECKING_AND_SAVINGS){
-            if (amount <= savingsBalance){
-                savingsBalance -= amount
-                checkingBalance += amount
-            } else println("Sorry, you can't convert $amount from Savings to checking-account, it's more than you actually have only: $savingsBalance")
+    override fun addMoney(money : Double, toTypeIfSecondAccount : AccountType){
+        if (type.equals(AccountType.SAVINGS))
+            savingsBalance += money
+        else if (type.equals(AccountType.CHECKING_AND_SAVINGS)){
+            if (toTypeIfSecondAccount.equals(AccountType.SAVINGS))
+                savingsBalance += money
+            else if (toTypeIfSecondAccount.equals(AccountType.CHECKING))
+                checkingAccount?.checkingBalance!!.plus(money)
         }
     }
 
+    override fun withdrawMoney(money : Double, fromTypeIfSecondAccount : AccountType): Boolean {
+        var canWithdraw = false
+        if (type.equals(AccountType.SAVINGS))
+            canWithdraw = widrawFromSavings(money)
+        else if (type.equals(AccountType.CHECKING_AND_SAVINGS)){
+            if (fromTypeIfSecondAccount.equals(AccountType.SAVINGS))
+                canWithdraw = widrawFromSavings(money)
+            else if (fromTypeIfSecondAccount.equals(AccountType.CHECKING))
+                canWithdraw = widrawFromChecking(money)
+        }
+        return canWithdraw
+    }
 
+    private fun widrawFromChecking(money: Double): Boolean {
+        var canWithdraw = false
+        if (money <= checkingAccount?.checkingBalance!!){
+            checkingAccount?.checkingBalance!!.minus(money)
+            canWithdraw = true
+            println("SUCCESS: money <= checkingBalance")
+        } else if (money > checkingAccount?.checkingBalance!!){
+            checkingAccount?.checkingBalance!!.minus(checkingAccount?.checkingBalance!!)
+            checkingAccount?.remainingOverdraft!!.minus(money)
+            canWithdraw = true
+            println("SUCCESS: money <= checkingBalance + remainingOverdraft")
+        }else if(money > checkingAccount?.checkingBalance!!.plus(checkingAccount?.remainingOverdraft!!)){
+            canWithdraw = false
+            println("FAILED: money > checkingBalance + remainingOverdraft")
+        }
+        return canWithdraw
+    }
+
+
+
+    private fun widrawFromSavings(money: Double): Boolean {
+        var canWithdraw = false
+        if (money <= savingsBalance){
+            savingsBalance -= money
+            canWithdraw = true
+            println("SUCCESS: money <= savingsBalance")
+        } else if (money > savingsBalance){
+            canWithdraw = false
+            println("FAILED: money > savingsBalance")
+        }
+        return canWithdraw
+    }
+
+    override fun transferMoneyToSomeone(): Boolean {
+        var canTransfer = false
+
+        return canTransfer
+    }
 }

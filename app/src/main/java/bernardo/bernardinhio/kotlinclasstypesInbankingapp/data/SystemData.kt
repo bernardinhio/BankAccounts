@@ -1,17 +1,15 @@
 package bernardo.bernardinhio.kotlinclasstypesInbankingapp.data
 
-import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.Account
-import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.AccountType
-import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.Owner
+import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.*
 
 class SystemData{
 
     companion object {
 
         // used in the UI
-        var accountOnlyChecking: Account? = null
-        var accountOnlySavings: Account? = null
-        var accountBothCheckingAndSavings: Account? = null
+        var accountOnlyChecking: CheckingAccount? = null
+        var accountOnlySavings: SavingsAccount? = null
+        var accountBothCheckingAndSavings: CheckingAccount? = null
         var ownerOnlyCheckingAccount: Owner? = null
         var ownerOnlySavingsAccount: Owner? = null
         var ownerBothCheckingAndSavingsAccount: Owner? = null
