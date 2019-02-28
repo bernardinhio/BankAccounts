@@ -117,7 +117,7 @@ class CheckingAccount(
             canWithdraw = true
         } else if (money > savingsAccount?.savingsBalance!!){
             canWithdraw = false
-            println("FAILED: money > savingsBalance")
+            println("cannot withhdraw money > savingsBalance")
         }
         return canWithdraw
     }
