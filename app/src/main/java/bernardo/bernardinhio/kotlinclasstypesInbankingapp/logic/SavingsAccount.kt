@@ -103,9 +103,35 @@ class SavingsAccount(
         return canWithdraw
     }
 
-    override fun transferMoneyToSomeone(): Boolean {
-        var canTransfer = false
 
+
+    override fun transferMoneyToSomeone(money : Double, fromTypeIfSecondAccount : AccountType, receiverAccount : Account): Boolean {
+        var canTransfer = false
+        // TODO
         return canTransfer
+    }
+
+
+
+    fun getBenefitPerYear(perYearOrMonth : Int) : Double{
+        return when(perYearOrMonth){
+            1 -> savingsBalance*yearlyInterestRate/100/12
+            12 -> savingsBalance*yearlyInterestRate/100
+            else -> 0.0
+        }
+    }
+
+
+
+
+    fun convertMoneyToChecking(money : Double) : Boolean{
+        var isConverted = false
+        if (type.equals(AccountType.CHECKING_AND_SAVINGS)){
+            // TODO checki amount is smaller
+            isConverted = true
+        } else if (type.equals(AccountType.SAVINGS)){
+
+        }
+        return isConverted
     }
 }

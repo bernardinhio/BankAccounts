@@ -149,8 +149,7 @@ class DashboardActivityBank : DashboardActivity() {
         newAccount = CheckingAccount(
                 getNonEmptyEnteredCheckingBalance(),
                 getNonEmptyEnteredOverdraftLimit(),
-                getNonEmptyEnteredOverdraftLimit(),
-                AccountType.CHECKING
+                getNonEmptyEnteredOverdraftLimit() // type // default is CHECKING
         )
         //setters
         newAccount.owner = newOwner
@@ -161,8 +160,7 @@ class DashboardActivityBank : DashboardActivity() {
     private fun setupSavingsAccount() {
         newAccount = SavingsAccount(
                 getNonEmptyEnteredSavingsBalance(),
-                Account.yearlyInterestRate,
-                AccountType.SAVINGS
+                Account.yearlyInterestRate // type // default is SAVINGS
         )
         // setters
         newAccount.owner = newOwner
@@ -179,14 +177,14 @@ class DashboardActivityBank : DashboardActivity() {
                 getNonEmptyEnteredCheckingBalance(),
                 getNonEmptyEnteredOverdraftLimit(),
                 getNonEmptyEnteredOverdraftLimit(),
-                AccountType.CHECKING_AND_SAVINGS,
+                AccountType.CHECKING_AND_SAVINGS, // default is CHECKING
                 SavingsAccount()
         )
         // create SavingsAccount of type CHECKING_AND_SAVINGS
         savingsAccount = SavingsAccount(
                 getNonEmptyEnteredSavingsBalance(),
                 fragmentCreateAccount.etYearlyInterestRate.text.toString().toDouble(),
-                AccountType.CHECKING_AND_SAVINGS,
+                AccountType.CHECKING_AND_SAVINGS, // default is SAVINGS
                 checkingAccount
         )
 

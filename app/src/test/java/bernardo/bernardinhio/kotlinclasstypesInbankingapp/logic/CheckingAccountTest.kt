@@ -12,7 +12,6 @@ class CheckingAccountTest{
         checking.checkingBalance = 3000.0
         checking.overdraftLimit = 500.0
         checking.remainingOverdraft = 200.0
-        checking.type = AccountType.CHECKING
 
         checkingAndSavings.checkingBalance = 3000.0
         checkingAndSavings.overdraftLimit = 500.0

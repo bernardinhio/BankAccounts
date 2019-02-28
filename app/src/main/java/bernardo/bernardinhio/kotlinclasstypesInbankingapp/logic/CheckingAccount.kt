@@ -125,10 +125,144 @@ class CheckingAccount(
 
 
 
-    override fun transferMoneyToSomeone(): Boolean {
-        var canTransfer = false
 
+    override fun transferMoneyToSomeone(money : Double, fromTypeIfSecondAccount : AccountType, receiverAccount : Account): Boolean {
+        var canTransfer = false
+        if (type.equals(AccountType.CHECKING)){
+            if (fromTypeIfSecondAccount.equals(AccountType.CHECKING)){
+                canTransfer = transferFromCheckingToReceiverAccount(money, receiverAccount)
+            } else if (fromTypeIfSecondAccount.equals(AccountType.SAVINGS)){
+                canTransfer = false
+                println("Your account is checking, you can't transfer from savings")
+            }
+        } else if (type.equals(AccountType.CHECKING_AND_SAVINGS)){
+            if (fromTypeIfSecondAccount.equals(AccountType.CHECKING))
+                canTransfer = transferFromCheckingToReceiverAccount(money, receiverAccount)
+            else if (fromTypeIfSecondAccount.equals(AccountType.SAVINGS))
+                canTransfer = transferFromSavingsToReceiverAccount(money, receiverAccount)
+        }
         return canTransfer
     }
 
+
+
+
+    private fun transferFromCheckingToReceiverAccount(money: Double, receiverAccount: Account): Boolean {
+        var canTransfer = false
+        if (money <= checkingBalance){
+            canTransfer = transferFromCheckingBalanceToReceiverAccount(money, receiverAccount)
+        } else if (money > checkingBalance && (money - checkingBalance) <= remainingOverdraft){
+            canTransfer = transferFromCheckingBalanceAndRemainingOverdraftToReceiverAccount(money, receiverAccount)
+        } else if(money > checkingBalance + remainingOverdraft){
+            canTransfer = false
+            println("can't withdraw money > checkingBalance + remainingOverdraft")
+        }
+        return canTransfer
+    }
+
+
+
+
+
+
+    private fun transferFromCheckingBalanceToReceiverAccount(money: Double, receiverAccount: Account): Boolean {
+        var canTransfer = false
+        when (receiverAccount.type){
+            AccountType.CHECKING -> {
+                (receiverAccount as CheckingAccount).checkingBalance.plus(money)
+                checkingBalance -= money
+                canTransfer = true
+            }
+            AccountType.SAVINGS -> {
+                (receiverAccount as SavingsAccount).savingsBalance.plus(money)
+                checkingBalance -= money
+                canTransfer = true
+            }
+            // receiving to CHECKING_AND_SAVINGS, receive on CHECKING
+            AccountType.CHECKING_AND_SAVINGS -> {
+                (receiverAccount as CheckingAccount).checkingBalance.plus(money)
+                checkingBalance -= money
+                canTransfer = true
+            }
+            AccountType.UNDEFINED -> {}
+        }
+        return canTransfer
+    }
+
+
+
+
+    private fun transferFromCheckingBalanceAndRemainingOverdraftToReceiverAccount(money: Double, receiverAccount: Account): Boolean {
+        var canTransfer = false
+        when (receiverAccount.type){
+            AccountType.CHECKING -> {
+                (receiverAccount as CheckingAccount).checkingBalance.plus(money)
+                remainingOverdraft = remainingOverdraft - (money - checkingBalance)
+                checkingBalance = 0.toDouble()
+                canTransfer = true
+            }
+            AccountType.SAVINGS -> {
+                (receiverAccount as SavingsAccount).savingsBalance.plus(money)
+                remainingOverdraft = remainingOverdraft - (money - checkingBalance)
+                checkingBalance = 0.toDouble()
+                canTransfer = true
+            }
+            // receiving to CHECKING_AND_SAVINGS, receive on CHECKING
+            AccountType.CHECKING_AND_SAVINGS -> {
+                (receiverAccount as CheckingAccount).checkingBalance.plus(money)
+                remainingOverdraft = remainingOverdraft - (money - checkingBalance)
+                checkingBalance = 0.toDouble()
+                canTransfer = true
+            }
+            AccountType.UNDEFINED -> {}
+        }
+        return canTransfer
+    }
+
+
+
+
+    private fun transferFromSavingsToReceiverAccount(money: Double, receiverAccount: Account): Boolean {
+        var canTransfer = false
+        if (money <= savingsAccount?.savingsBalance!!){
+            when (receiverAccount.type){
+                AccountType.CHECKING -> {
+                    (receiverAccount as CheckingAccount).checkingBalance.plus(money)
+                    savingsAccount?.savingsBalance = savingsAccount?.savingsBalance!! - money
+                    canTransfer = true
+                }
+                AccountType.SAVINGS -> {
+                    (receiverAccount as SavingsAccount).savingsBalance.plus(money)
+                    savingsAccount?.savingsBalance = savingsAccount?.savingsBalance!! - money
+                    canTransfer = true
+                }
+                // receiving to CHECKING_AND_SAVINGS, receive on CHECKING
+                AccountType.CHECKING_AND_SAVINGS -> {
+                    (receiverAccount as CheckingAccount).checkingBalance.plus(money)
+                    savingsAccount?.savingsBalance = savingsAccount?.savingsBalance!! - money
+                    canTransfer = true
+                }
+                AccountType.UNDEFINED -> {}
+            }
+        } else if (money > savingsAccount?.savingsBalance!!){
+            canTransfer = false
+            println("cannot transfer money > savingsBalance")
+        }
+        return canTransfer
+    }
+
+
+
+
+
+    fun convertMoneyToSavings(money : Double) : Boolean{
+        var isConverted = false
+        if (type.equals(AccountType.CHECKING_AND_SAVINGS)){
+            // TODO checki amount is smaller
+            isConverted = true
+        } else if (type.equals(AccountType.CHECKING)){
+
+        }
+        return isConverted
+    }
 }

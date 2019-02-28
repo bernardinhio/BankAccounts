@@ -9,7 +9,7 @@ import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
 
 open class DashboardActivity : FragmentActivity(){ // should be FragmentActivity to allow floating popop effect
 
-    // comon to all dashboard activities
+    // common to all dashboard activities
     protected fun setActivityDimensions(){
         val display = windowManager.defaultDisplay
         val point = Point()
