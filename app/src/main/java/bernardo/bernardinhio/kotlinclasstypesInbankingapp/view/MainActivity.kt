@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
         tvAccountInfoOnlyChecking.text =
                 "Checking Balance: ${SystemData.accountOnlyChecking?.checkingBalance} €" +
                 "\nOverdraft Limit: ${SystemData.accountOnlyChecking?.overdraftLimit} €"
-        tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created Checking-only account"
+        tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created Checking-only account at: ${SystemData.accountOnlyChecking?.dateCreated} \n"
     }
 
     private fun showAccountOnlyCheckingDetails(show : Boolean){
@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
         tvOwnerInfoOnlySavings.text = "Owner: ${SystemData.ownerOnlySavingsAccount?.firstName} ${SystemData.ownerOnlySavingsAccount?.lastName}"
         tvAccountInfoOnlySavings.text = "Savings Balance: ${SystemData.accountOnlySavings?.savingsBalance} €" +
                 "\n Interest/year: ${SystemData.accountOnlySavings?.yearlyInterestRate}%"
-        tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created Savings-only account"
+        tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created Savings-only account at: ${SystemData.accountOnlySavings?.dateCreated} \n"
     }
 
     private fun showAccountOnlySavingsDetails(show : Boolean){
@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
                         "\nOverdraft Limit: ${SystemData.accountBothCheckingAndSavings?.overdraftLimit} €" +
                         "\nSavings Balance: ${SystemData.accountBothCheckingAndSavings?.savingsAccount?.savingsBalance} €" +
                         "\nInterest/year: ${SystemData.accountBothCheckingAndSavings?.savingsAccount?.yearlyInterestRate}%"
-        tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created both Checking & Savings account"
+        tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created both Checking & Savings account at: ${SystemData.accountBothCheckingAndSavings?.dateCreated} \n"
     }
 
     private fun showAccountBothCheckingAndSavingsDetails(show : Boolean){

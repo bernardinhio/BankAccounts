@@ -1,5 +1,8 @@
 package bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic
 
+import java.text.SimpleDateFormat
+import java.util.*
+
 abstract class Account(
         val id : Long = System.currentTimeMillis() - "account".length,
         val dateCreated : String = Account.getFormattedTime(System.currentTimeMillis()),
@@ -11,8 +14,15 @@ abstract class Account(
 
         var yearlyInterestRate : Double = InterestRatePerYearForAmount.INTEREST_3_POINT_23.interestRate
 
-        private fun getFormattedTime(timeStamp: Long): String {
-            return timeStamp.toString() // TODO conversion later
+        // format  Feb 28, 2019 at 18:36: 27sec
+        fun getFormattedTime(timeStamp: Long): String {
+            try {
+                val simpleDateFormat = SimpleDateFormat("HH:mm ss'sec'", Locale.GERMANY)
+                val netDate = Date(timeStamp)
+                return simpleDateFormat.format(netDate)
+            } catch (e: Exception) {
+                return e.toString()
+            }
         }
     }
 
@@ -24,10 +34,11 @@ abstract class Account(
 
     // inherited by all, having implementation
     fun getInterestRatePerYear() : Double{
-        val interest = Account.yearlyInterestRate
-        val category = InterestRatePerYearForAmount.valueOf(interest.toString()).amountMore
-        print("Standard Interest per year: $interest for amount more than: $category")
-        return interest
+        val bankStandardInterest = Account.yearlyInterestRate
+        val category = InterestRatePerYearForAmount.values().forEach { if (it.interestRate.equals(bankStandardInterest)) it.amountMore }
+
+        print("Standard Interest per year: $bankStandardInterest for amount more than: $category")
+        return bankStandardInterest
     }
 }
 
@@ -55,4 +66,9 @@ enum class InterestRatePerYearForAmount(val interestRate : Double, val amountMor
     INTEREST_5_POINT_57(5.57, 43000.0),
     INTEREST_6_POINT_15(6.15, 65000.0),
     UNDEFINED(0.0, 0.0)
+}
+
+enum class PeriodOfInterest(val period : String){
+    MONTHS_12("12_months"),
+    MONTHS_1("1_months"),
 }
