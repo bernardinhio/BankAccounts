@@ -20,20 +20,27 @@ Savings = S
 Checking/Savings = CS
 
 
-getBalance()   for C  S  CS
-addMoney()   for C  S  CS
-withdrawMoney()   for C  S  CS
-transferMoneyToSomeone()   for C  S  CS
+// abstract methods in superclass
+getBalance()  -- for C  S  CS
+addMoney()  -- for C  S  CS
+withdrawMoney()  -- for C  S  CS
+transferMoneyToSomeone()  -- for C  S  CS
 
-getOverdraftLimit()   for C  CS
-getRemainingOverdraft()   for C  CS
+//in super and implemented
+getInterestRatePerYear()   -- for   C S  CS
 
-getInterestRatePerYear()    for S  CS
-getBenefitPerYear ()    for S  CS
-getBenefitPerMonth ()    for S  CS
+// by Kotlin
+getOverdraftLimit()  -- for C  CS       
+getRemainingOverdraft()  -- for C  CS   
 
-convertMoneyToChecking()   for CS
-convertMoneyToSavings()    for CS
+// subclass CheckingAccount
+getBenefitPerYear ()   -- for S  CS     
+getBenefitPerMonth ()   -- for S  CS   
+convertMoneyToSavings()   -- for CS
+
+// subclass SavingsAccount
+convertMoneyToChecking()  -- for CS
+
 
 
 ------------ screenshots --------------
