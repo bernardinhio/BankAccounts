@@ -46,6 +46,7 @@ class SavingsAccount(
         }
     }
 
+    // TODO make unit test to check if working as in CheckingAccount
     override fun addMoney(money : Double, toTypeIfSecondAccount : AccountType){
         if (type.equals(AccountType.SAVINGS))
             savingsBalance += money
@@ -104,7 +105,7 @@ class SavingsAccount(
     }
 
 
-
+    // TODO make unit test to check if working as in CheckingAccount
     override fun transferMoneyToSomeone(money : Double, fromTypeIfSecondAccount : AccountType, receiverAccount : Account): Boolean {
         var canTransfer = false
         // TODO
@@ -113,6 +114,8 @@ class SavingsAccount(
 
 
 
+
+    // TODO Unit test
     fun getBenefitPerYear(perYearOrMonth : Int) : Double{
         return when(perYearOrMonth){
             1 -> savingsBalance*yearlyInterestRate/100/12
@@ -127,7 +130,7 @@ class SavingsAccount(
     fun convertMoneyToChecking(money : Double) : Boolean{
         var isConverted = false
         if (type.equals(AccountType.CHECKING_AND_SAVINGS)){
-            // TODO checki amount is smaller
+            // TODO check if amount is smaller
             isConverted = true
         } else if (type.equals(AccountType.SAVINGS)){
 
