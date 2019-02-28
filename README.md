@@ -12,6 +12,7 @@ Concerning the App, I made a quite nice concept of interaction, I used Fragments
 
 I made a bank component on the App represented by Square that will initialize / create the 3 types of Accounts
 
+
 How I proceeded and decided which methods a shared and do the same for any type of account and which have same name but do different things and which have different names but exist only for a certain type of accounts? I started by writing all the possible methods that can exist, then I found out for each method which type of account is concerned. Here is how I did:
 
 Checking = C
@@ -93,6 +94,7 @@ Create only SavingAccount for this App
 
 
 When finish, update Homepage and show animation and update console
+
 
 ![screenshot_1651250885]( https://user-images.githubusercontent.com/20923486/53473423-a2930800-3a6a-11e9-9490-3726fa57d89f.png) 
 
