@@ -40,15 +40,17 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
 
+
             <Button
                 android:id="@+id/get_balance"
+                android:text="getBalance"
                 android:onClick="getBalance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/close"/>
             <Button
                 android:id="@+id/get_interest"
-                android:onClick="getInterest"
+                android:text="getInterest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/get_balance"/>
@@ -68,24 +70,28 @@
             </RadioGroup>
             <Button
                 android:id="@+id/withdraw_money"
+                android:text="withdrawMoney"
                 android:onClick="withdrawMoney"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/interest_type"/>
             <Button
                 android:id="@+id/add_money"
+                android:text="addMoney"
                 android:onClick="addMoney"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/withdraw_money"/>
             <Button
                 android:id="@+id/transfer_to_someone"
+                android:text="transferToSomeone"
                 android:onClick="transferToSomeone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/add_money"/>
             <TextView
                 android:id="@+id/feedback_only_savings"
+                android:hint="feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/transfer_to_someone"/>
@@ -93,26 +99,19 @@
             <!-- reactive -->
             <EditText
                 android:id="@+id/money_to_withdraw_from_savings"
+                android:hint="input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/feedback_only_savings"/>
-            <EditText
-                android:id="@+id/money_to_add_to_savings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/money_to_withdraw_from_savings"/>
-            <EditText
-                android:id="@+id/money_to_transfer_to_account_savings_and_checking"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/money_to_add_to_savings"/>
 
             <!-- not reactive anymore -->
             <Button
                 android:id="@+id/submit_any_operation"
+                android:text="submit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/money_to_transfer_to_account_savings_and_checking"/>
+                app:layout_constraintTop_toBottomOf="@id/money_to_withdraw_from_savings"/>
+
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
