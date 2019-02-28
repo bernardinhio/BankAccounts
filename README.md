@@ -41,7 +41,9 @@ convertMoneyToSavings()   -- for CS
 // subclass SavingsAccount
 convertMoneyToChecking()  -- for CS
 
+I developped some of the methods (didn't finish yet)  all implementation and also the put in practice in the Ap. But I did Unit test for both classes CheckingAccountTest and SavingsAccountTest. The CheckingAccountTest is more developped than the other
 
+Once this is done, then I will add features to the UI for each Dashboard activity of the different sorts of Accounts
 
 ------------ screenshots --------------
 
