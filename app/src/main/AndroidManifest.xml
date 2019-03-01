@@ -20,33 +20,33 @@
         </activity>
 
         <activity
-            android:name=".view.DashboardActivityClientOnlySavingsAccount"
+            android:name=".view.ActivitySavingsAccountDashboard"
             android:theme="@style/CustomFloatingActivityTheme"
             android:parentActivityName=".view.MainActivity">
 
         </activity>
 
         <activity
-            android:name=".view.DashboardActivityClientOnlyCheckingAccount"
+            android:name=".view.ActivityCheckingAccountDashboard"
             android:theme="@style/CustomFloatingActivityTheme"
             android:parentActivityName=".view.MainActivity">
 
         </activity>
 
         <activity
-            android:name=".view.DashboardActivityClientBothSavingsAndCheckingAccount"
+            android:name=".view.ActivitySavingsAndCheckingAccountDashboard"
             android:theme="@style/CustomFloatingActivityTheme"
             android:parentActivityName=".view.MainActivity">
 
         </activity>
 
         <activity
-            android:name=".view.DashboardActivityBank"
+            android:name=".view.ActivityBankDashboard"
             android:theme="@style/CustomFloatingActivityTheme"
             android:parentActivityName=".view.MainActivity">
 
         </activity>
-        <activity android:name=".view.DashboardActivity" />
+        <activity android:name=".view.ActivityDashboard" />
 
     </application>
 

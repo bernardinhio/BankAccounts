@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -12,7 +13,6 @@ import android.widget.TextView
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.data.SystemData
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.Account
-import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.CheckingAccount
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.OverdraftLimitType
 
 class FragmentCreateAccount : Fragment(){
@@ -31,6 +31,7 @@ class FragmentCreateAccount : Fragment(){
     lateinit var tvLabelYearlyInterestRate : TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        this.activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         val viewInflated : View = inflater.inflate(R.layout.fragment_create_account, container, false)
         initializeViews(viewInflated)
         setUiDefaultValues()

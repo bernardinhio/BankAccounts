@@ -14,7 +14,7 @@ import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.data.SystemData
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic.*
 
-class DashboardActivityBank : DashboardActivity() {
+class ActivityBankDashboard : ActivityDashboard() {
 
     var areFieldsClientFilled = false
     var areFieldsAccountFilled = false
@@ -35,7 +35,7 @@ class DashboardActivityBank : DashboardActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_dashboard_bank)
+        setContentView(R.layout.activity_bank_dashboard)
         setActivityDimensions()
 
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)

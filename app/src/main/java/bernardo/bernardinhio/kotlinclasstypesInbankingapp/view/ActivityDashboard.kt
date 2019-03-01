@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentActivity
 import android.view.View
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
 
-open class DashboardActivity : FragmentActivity(){ // should be FragmentActivity to allow floating popop effect
+open class ActivityDashboard : FragmentActivity(){ // should be FragmentActivity to allow floating popop effect
 
     // common to all dashboard activities
     protected fun setActivityDimensions(){

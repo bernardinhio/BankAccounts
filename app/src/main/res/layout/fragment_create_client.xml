@@ -6,6 +6,7 @@
     <EditText
         android:id="@+id/et_first_name"
         android:hint="First name..."
+        android:textColorHint="#000000"
         android:textSize="15sp"
         android:fontFamily="sans-serif-condensed"
         android:textColor="#000000"
@@ -17,6 +18,7 @@
     <EditText
         android:id="@+id/et_last_name"
         android:hint="Last name..."
+        android:textColorHint="#000000"
         android:textSize="15sp"
         android:fontFamily="sans-serif-condensed"
         android:textColor="#000000"
@@ -28,6 +30,7 @@
     <EditText
         android:id="@+id/et_date_of_birth"
         android:hint="Date of birth..."
+        android:textColorHint="#000000"
         android:textSize="15sp"
         android:fontFamily="sans-serif-condensed"
         android:textColor="#000000"
@@ -39,6 +42,7 @@
     <EditText
         android:id="@+id/et_nationality"
         android:hint="Nationality..."
+        android:textColorHint="#000000"
         android:textSize="15sp"
         android:fontFamily="sans-serif-condensed"
         android:textColor="#000000"
@@ -50,6 +54,7 @@
     <EditText
         android:id="@+id/et_address"
         android:hint="Address..."
+        android:textColorHint="#000000"
         android:textSize="15sp"
         android:fontFamily="sans-serif-condensed"
         android:textColor="#000000"
@@ -61,6 +66,7 @@
     <EditText
         android:id="@+id/et_occupation"
         android:hint="Occupation..."
+        android:textColorHint="#000000"
         android:textSize="15sp"
         android:fontFamily="sans-serif-condensed"
         android:textColor="#000000"
@@ -79,9 +85,12 @@
         android:textSize="12sp"
         android:fontFamily="sans-serif-condensed"
         android:textAllCaps="false"
+        android:textColor="#000000"
         android:background="@drawable/rectangle_white_inside_border_black"
         android:layout_marginTop="15sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_occupation" />
 </android.support.constraint.ConstraintLayout>

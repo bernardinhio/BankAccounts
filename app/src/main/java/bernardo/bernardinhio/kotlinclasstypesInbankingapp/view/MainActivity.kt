@@ -70,16 +70,20 @@ class MainActivity : AppCompatActivity() {
         when (SystemData.accountModified) {
             AccountType.CHECKING -> {
                 updateUiCheckingOnlyAccount()
-                startAnimationClientContainer(containerClientOnlyCheckingAccount!!)
+                SystemData.accountModified = AccountType.UNDEFINED
+                startAnimationClientContainer(containerClientOnlyCheckingAccount)
             }
             AccountType.SAVINGS -> {
                 updateUiSavingsOnlyAccount()
-                startAnimationClientContainer(containerClientOnlySavingsAccount!!)
+                SystemData.accountModified = AccountType.UNDEFINED
+                startAnimationClientContainer(containerClientOnlySavingsAccount)
             }
             AccountType.CHECKING_AND_SAVINGS -> {
                 updateUiBothCheckingAndSavingsAccount()
-                startAnimationClientContainer(containerClientBothCheckingAndSavingsAccount!!)
+                SystemData.accountModified = AccountType.UNDEFINED
+                startAnimationClientContainer(containerClientBothCheckingAndSavingsAccount)
             }
+            else -> {}
         }
         // if all 3 components are created then don't allow Bank dashboard
         // to create new ones but instead allow her to rest all data
@@ -91,48 +95,48 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateUiCheckingOnlyAccount() {
         showAccountOnlyCheckingDetails(true)
-        tvOwnerInfoOnlyChecking.text = "Owner: ${SystemData.ownerOnlyCheckingAccount?.firstName} ${SystemData.ownerOnlyCheckingAccount?.lastName}"
+        tvOwnerInfoOnlyChecking.text = "${SystemData.ownerOnlyCheckingAccount?.firstName} ${SystemData.ownerOnlyCheckingAccount?.lastName}"
         tvAccountInfoOnlyChecking.text =
-                "Checking Balance: ${SystemData.accountOnlyChecking?.checkingBalance} €" +
-                "\nOverdraft Limit: ${SystemData.accountOnlyChecking?.overdraftLimit} €"
-        tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created Checking-only account at: ${SystemData.accountOnlyChecking?.dateCreated} \n"
+                "Checking: ${SystemData.accountOnlyChecking?.checkingBalance}€" +
+                "\nLimit: ${SystemData.accountOnlyChecking?.overdraftLimit}€"
+        tvConsoleMessages.text = "\nBank created Checking-only account --> at: ${SystemData.accountOnlyChecking?.dateCreated}"
     }
 
     private fun showAccountOnlyCheckingDetails(show : Boolean){
-        tvOwnerInfoOnlyChecking.visibility = if (show) View.VISIBLE else View.GONE
-        tvAccountInfoOnlyChecking.visibility = if (show) View.VISIBLE else View.GONE
-        btnActionsOnlyCheckingAccount.visibility = if (show) View.VISIBLE else View.GONE
+        tvOwnerInfoOnlyChecking.visibility = if (show) View.VISIBLE else View.INVISIBLE
+        tvAccountInfoOnlyChecking.visibility = if (show) View.VISIBLE else View.INVISIBLE
+        btnActionsOnlyCheckingAccount.visibility = if (show) View.VISIBLE else View.INVISIBLE
     }
 
     private fun updateUiSavingsOnlyAccount() {
         showAccountOnlySavingsDetails(true)
-        tvOwnerInfoOnlySavings.text = "Owner: ${SystemData.ownerOnlySavingsAccount?.firstName} ${SystemData.ownerOnlySavingsAccount?.lastName}"
-        tvAccountInfoOnlySavings.text = "Savings Balance: ${SystemData.accountOnlySavings?.savingsBalance} €" +
+        tvOwnerInfoOnlySavings.text = "${SystemData.ownerOnlySavingsAccount?.firstName} ${SystemData.ownerOnlySavingsAccount?.lastName}"
+        tvAccountInfoOnlySavings.text = "Savings: ${SystemData.accountOnlySavings?.savingsBalance}€" +
                 "\n Interest/year: ${SystemData.accountOnlySavings?.yearlyInterestRate}%"
-        tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created Savings-only account at: ${SystemData.accountOnlySavings?.dateCreated} \n"
+        tvConsoleMessages.text = "\nBank created Savings-only account --> at: ${SystemData.accountOnlySavings?.dateCreated}"
     }
 
     private fun showAccountOnlySavingsDetails(show : Boolean){
-        tvOwnerInfoOnlySavings.visibility = if (show) View.VISIBLE else View.GONE
-        tvAccountInfoOnlySavings.visibility = if (show) View.VISIBLE else View.GONE
-        btnActionsOnlySavingsAccount.visibility = if (show) View.VISIBLE else View.GONE
+        tvOwnerInfoOnlySavings.visibility = if (show) View.VISIBLE else View.INVISIBLE
+        tvAccountInfoOnlySavings.visibility = if (show) View.VISIBLE else View.INVISIBLE
+        btnActionsOnlySavingsAccount.visibility = if (show) View.VISIBLE else View.INVISIBLE
     }
 
     private fun updateUiBothCheckingAndSavingsAccount() {
         showAccountBothCheckingAndSavingsDetails(true)
-        tvOwnerInfoBothSavingsAndChecking.text = "Owner: ${SystemData.ownerBothCheckingAndSavingsAccount?.firstName} ${SystemData.ownerBothCheckingAndSavingsAccount?.lastName}"
+        tvOwnerInfoBothSavingsAndChecking.text = "${SystemData.ownerBothCheckingAndSavingsAccount?.firstName} ${SystemData.ownerBothCheckingAndSavingsAccount?.lastName}"
         tvAccountInfoBothSavingsAndChecking.text =
-                "Checking Balance: ${SystemData.accountBothCheckingAndSavings?.checkingBalance} €" +
-                        "\nOverdraft Limit: ${SystemData.accountBothCheckingAndSavings?.overdraftLimit} €" +
-                        "\nSavings Balance: ${SystemData.accountBothCheckingAndSavings?.savingsAccount?.savingsBalance} €" +
+                "Checking: ${SystemData.accountBothCheckingAndSavings?.checkingBalance}€" +
+                        "\nLimit: ${SystemData.accountBothCheckingAndSavings?.overdraftLimit}€" +
+                        "\nSavings: ${SystemData.accountBothCheckingAndSavings?.savingsAccount?.savingsBalance}€" +
                         "\nInterest/year: ${SystemData.accountBothCheckingAndSavings?.savingsAccount?.yearlyInterestRate}%"
-        tvConsoleMessages.text = tvConsoleMessages.text.toString() + "\nBank created both Checking & Savings account at: ${SystemData.accountBothCheckingAndSavings?.dateCreated} \n"
+        tvConsoleMessages.text = "\nBank created both Checking & Savings account --> at: ${SystemData.accountBothCheckingAndSavings?.dateCreated}"
     }
 
     private fun showAccountBothCheckingAndSavingsDetails(show : Boolean){
-        tvOwnerInfoBothSavingsAndChecking.visibility = if (show) View.VISIBLE else View.GONE
-        tvAccountInfoBothSavingsAndChecking.visibility = if (show) View.VISIBLE else View.GONE
-        btnActionsBothSavingsAndCheckingAccount.visibility = if (show) View.VISIBLE else View.GONE
+        tvOwnerInfoBothSavingsAndChecking.visibility = if (show) View.VISIBLE else View.INVISIBLE
+        tvAccountInfoBothSavingsAndChecking.visibility = if (show) View.VISIBLE else View.INVISIBLE
+        btnActionsBothSavingsAndCheckingAccount.visibility = if (show) View.VISIBLE else View.INVISIBLE
     }
 
     // whe, the 3 Ui components and 3 types of accounts are initialized
@@ -140,7 +144,7 @@ class MainActivity : AppCompatActivity() {
     private fun setButtonDashboardBankClickListener(){
         btnDashboardBank.setOnClickListener {
             if(btnDashboardBank.tag.equals("openDashboardBank")){
-                startActivity(Intent(this, DashboardActivityBank::class.java))
+                startActivity(Intent(this, ActivityBankDashboard::class.java))
             } else if(btnDashboardBank.tag.equals("restartActivity")){
                 restartAppSimulation()
             }
@@ -161,15 +165,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openDashboardSavingsAccount(view: View) {
-        startActivity(Intent(this, DashboardActivityClientOnlySavingsAccount::class.java))
+        startActivity(Intent(this, ActivitySavingsAccountDashboard::class.java))
     }
 
     fun openDashboardCheckingAccount(view: View) {
-        startActivity(Intent(this, DashboardActivityClientOnlyCheckingAccount::class.java))
+        startActivity(Intent(this, ActivityCheckingAccountDashboard::class.java))
     }
 
     fun openDashboardSavingsAndCheckingAccount(view: View) {
-        startActivity(Intent(this, DashboardActivityClientBothSavingsAndCheckingAccount::class.java))
+        startActivity(Intent(this, ActivitySavingsAndCheckingAccountDashboard::class.java))
     }
 
     fun setupClientsContainersAnimation() {

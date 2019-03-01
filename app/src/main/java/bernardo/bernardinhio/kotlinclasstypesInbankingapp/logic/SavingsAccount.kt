@@ -46,10 +46,6 @@ class SavingsAccount(
         }
     }
 
-
-
-
-
     override fun addMoney(money : Double, toTypeIfSecondAccount : AccountType){
         if (type.equals(AccountType.SAVINGS)){
             if (toTypeIfSecondAccount.equals(AccountType.SAVINGS))
@@ -64,10 +60,6 @@ class SavingsAccount(
                 checkingAccount?.checkingBalance = money + checkingAccount?.checkingBalance!!
         }
     }
-
-
-
-
 
     override fun withdrawMoney(money : Double, fromTypeIfSecondAccount : AccountType): Boolean {
         var canWithdraw = false
@@ -106,8 +98,6 @@ class SavingsAccount(
         return canWithdraw
     }
 
-
-
     private fun withdrawFromSavings(money: Double): Boolean {
         var canWithdraw = false
         if (money <= savingsBalance){
@@ -136,9 +126,6 @@ class SavingsAccount(
         }
         return canTransfer
     }
-
-
-
 
     private fun transferFromSavingsToReceiverAccount(money: Double, receiverAccount: Account): Boolean {
         var canTransfer = false
@@ -169,9 +156,6 @@ class SavingsAccount(
         return canTransfer
     }
 
-
-
-
     private fun transferFromCheckingToReceiverAccount(money: Double, receiverAccount: Account): Boolean {
         var canTransfer = false
         if (money <= checkingAccount?.checkingBalance!!){
@@ -184,9 +168,6 @@ class SavingsAccount(
         }
         return canTransfer
     }
-
-
-
 
     private fun transferFromCheckingBalanceToReceiverAccount(money: Double, receiverAccount: Account): Boolean {
         var canTransfer = false
@@ -211,8 +192,6 @@ class SavingsAccount(
         }
         return canTransfer
     }
-
-
 
 
     private fun transferFromCheckingBalanceAndRemainingOverdraftToReceiverAccount(money: Double, receiverAccount: Account): Boolean {
@@ -242,20 +221,6 @@ class SavingsAccount(
         return canTransfer
     }
 
-
-
-
-
-    fun getBenefitFromInterest(perPeriod : PeriodOfInterest) : Double{
-        return when(perPeriod){
-            PeriodOfInterest.MONTHS_1 -> savingsBalance*yearlyInterestRate/100/12
-            PeriodOfInterest.MONTHS_12 -> savingsBalance*yearlyInterestRate/100
-        }
-    }
-
-
-
-
     fun convertMoneyToChecking(money : Double) : Boolean{
         var isConverted = false
         if (type.equals(AccountType.CHECKING_AND_SAVINGS)){
@@ -270,5 +235,12 @@ class SavingsAccount(
         checkingAccount?.checkingBalance = money + checkingAccount?.checkingBalance!!
         savingsBalance -= money
         return true
+    }
+
+    fun getBenefitFromInterest(perPeriod : PeriodOfInterest) : Double{
+        return when(perPeriod){
+            PeriodOfInterest.MONTHS_1 -> savingsBalance*yearlyInterestRate/100/12
+            PeriodOfInterest.MONTHS_12 -> savingsBalance*yearlyInterestRate/100
+        }
     }
 }

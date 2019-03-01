@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.EditText
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
 
@@ -18,6 +19,7 @@ class FragmentCreateClient : Fragment(){
     lateinit var etOccupation : EditText
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        this.activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         val viewInflated : View = inflater.inflate(R.layout.fragment_create_client, container, false)
         initializeViews(viewInflated)
         return viewInflated
