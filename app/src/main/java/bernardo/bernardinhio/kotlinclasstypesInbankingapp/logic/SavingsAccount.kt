@@ -14,7 +14,7 @@ package bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic
 class SavingsAccount(
         var savingsBalance : Double = 0.toDouble(),
         var yearlyInterestRate : Double = 0.toDouble(),
-        override var type: AccountType = AccountType.SAVINGS,
+        override var type: AccountType = AccountType.SAVINGS, // used for constructor when creating an account having 2 types
         var checkingAccount: CheckingAccount? = null
 ) : Account(){
 
@@ -221,7 +221,7 @@ class SavingsAccount(
         return canTransfer
     }
 
-    fun convertMoneyToChecking(money : Double) : Boolean{
+    override fun convertMoneyFromMySavingsToMyChecking(money : Double) : Boolean {
         var isConverted = false
         if (type.equals(AccountType.CHECKING_AND_SAVINGS)){
             if (money <= savingsBalance){
@@ -235,6 +235,10 @@ class SavingsAccount(
         checkingAccount?.checkingBalance = money + checkingAccount?.checkingBalance!!
         savingsBalance -= money
         return true
+    }
+
+    override fun convertMoneyFromMyCheckingToMySavings(money : Double) : Boolean {
+        return checkingAccount?.convertMoneyFromMyCheckingToMySavings(money)!!
     }
 
     fun getBenefitFromInterest(perPeriod : PeriodOfInterest) : Double{

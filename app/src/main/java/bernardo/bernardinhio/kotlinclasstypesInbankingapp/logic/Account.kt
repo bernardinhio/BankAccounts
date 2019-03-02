@@ -31,6 +31,8 @@ abstract class Account(
     abstract fun addMoney(money : Double, toTypeIfSecondAccount : AccountType)
     abstract fun withdrawMoney(money : Double, fromTypeIfSecondAccount : AccountType) : Boolean
     abstract fun transferMoneyToSomeone(money : Double, fromTypeIfSecondAccount : AccountType, receiverAccount : Account) : Boolean
+    abstract fun convertMoneyFromMyCheckingToMySavings(money : Double) : Boolean
+    abstract fun convertMoneyFromMySavingsToMyChecking(money : Double) : Boolean
 
     // inherited by all, having implementation
     fun getInterestRatePerYear() : Double{

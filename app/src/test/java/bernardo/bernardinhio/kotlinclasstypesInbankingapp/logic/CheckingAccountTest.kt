@@ -267,12 +267,12 @@ class CheckingAccountTest{
 
 
 
-    // convertMoneyToSavings
+    // convertMoneyFromMyCheckingToMySavings
 
     @org.junit.Test
     fun test1_convertMoneyToSavingse() {
         reload()
-        checkingAndSavingsAcc.convertMoneyToSavings(2000.0)
+        checkingAndSavingsAcc.convertMoneyFromMyCheckingToMySavings(2000.0)
         assertEquals(3500.0.toString(), checkingAndSavingsAcc.savingsAccount?.savingsBalance!!.toString())
         assertEquals(1000.0.toString(),checkingAndSavingsAcc.checkingBalance.toString())
     }
@@ -280,7 +280,7 @@ class CheckingAccountTest{
     @org.junit.Test
     fun test2_convertMoneyToSavingse() {
         reload()
-        checkingAndSavingsAcc.convertMoneyToSavings(3500.0)
+        checkingAndSavingsAcc.convertMoneyFromMyCheckingToMySavings(3500.0)
         assertNotEquals(3500.0.toString(), checkingAndSavingsAcc.savingsAccount?.savingsBalance!!.toString())
         assertNotEquals(1000.0.toString(),checkingAndSavingsAcc.checkingBalance.toString())
     }
@@ -288,7 +288,7 @@ class CheckingAccountTest{
     @org.junit.Test
     fun test3_convertMoneyToSavingse() {
         reload()
-        checkingAcc.convertMoneyToSavings(3500.0)
+        checkingAcc.convertMoneyFromMyCheckingToMySavings(3500.0)
         assertNotEquals(3500.0.toString(), checkingAndSavingsAcc.savingsAccount?.savingsBalance!!.toString())
         assertNotEquals(1000.0.toString(),checkingAndSavingsAcc.checkingBalance.toString())
     }

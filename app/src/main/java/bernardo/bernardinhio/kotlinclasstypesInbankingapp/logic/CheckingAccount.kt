@@ -16,10 +16,9 @@ class CheckingAccount(
         var checkingBalance: Double = 0.toDouble(),
         var overdraftLimit: Double = 0.toDouble(),
         var remainingOverdraft: Double = 0.toDouble(),
-        override var type: AccountType = AccountType.CHECKING,
+        override var type: AccountType = AccountType.CHECKING, // used for constructor when creating an account having 2 types
         var savingsAccount : SavingsAccount? = null
 ) : Account() {
-
     /**
      * we can create from the beginning an account that is
      * of type CHECKING_AND_SAVINGS, or just CHECKING
@@ -218,7 +217,7 @@ class CheckingAccount(
         return canTransfer
     }
 
-    fun convertMoneyToSavings(money : Double) : Boolean{
+    override fun convertMoneyFromMyCheckingToMySavings(money : Double) : Boolean {
         var isConverted = false
         if (type.equals(AccountType.CHECKING_AND_SAVINGS)){
             if (money <= checkingBalance){
@@ -232,5 +231,9 @@ class CheckingAccount(
         savingsAccount?.savingsBalance = money + savingsAccount?.savingsBalance!!
         checkingBalance -= money
         return true
+    }
+
+    override fun convertMoneyFromMySavingsToMyChecking(money : Double) : Boolean {
+        return savingsAccount?.convertMoneyFromMySavingsToMyChecking(money)!!
     }
 }
