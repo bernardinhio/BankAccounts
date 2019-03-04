@@ -8,6 +8,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
@@ -40,6 +41,7 @@ class ActivityBankDashboard : ActivityDashboard() {
 
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
+        findViewById<TextView>(R.id.page_title).text = "The Bank"
         etGlobalInterestRate =  findViewById(R.id.et_global_yearly_interest_rate)
 
         btnChangeGlobalInterest = findViewById<Button>(R.id.bt_change_bank_yearly_interest_rate)
@@ -56,10 +58,10 @@ class ActivityBankDashboard : ActivityDashboard() {
     fun changeBankYearlyInterestRate(view : View){
         if (!etGlobalInterestRate.text.isEmpty()){
             val builder = AlertDialog.Builder(this)
-            builder.setTitle("Current Interest rate is: ${Account.yearlyInterestRate}\nSure change the bank Interest rate?")
+            builder.setTitle("Current Interest yearlyRate is: ${Account.standardYearlyInterestRate}\nSure change the bank Interest yearlyRate?")
                     .setMessage("This will affect all Accounts!")
                     .setPositiveButton("YES") { dialog, which ->
-                        Account.yearlyInterestRate = etGlobalInterestRate.text.toString().toDouble()
+                        Account.standardYearlyInterestRate = etGlobalInterestRate.text.toString().toDouble()
                         etGlobalInterestRate.isEnabled = false
                     }
                     .setNeutralButton("CANCEL") {
@@ -67,7 +69,7 @@ class ActivityBankDashboard : ActivityDashboard() {
                         builder.setCancelable(true)
                     }
                     .show()
-        } else Toast.makeText(this, "You didn't enter new Yearly Interest rate", Toast.LENGTH_LONG).show()
+        } else Toast.makeText(this, "You didn't enter new Yearly Interest yearlyRate", Toast.LENGTH_LONG).show()
     }
 
     fun createClient(view : View){
@@ -160,7 +162,7 @@ class ActivityBankDashboard : ActivityDashboard() {
     private fun setupSavingsAccount() {
         newAccount = SavingsAccount(
                 getNonEmptyEnteredSavingsBalance(),
-                Account.yearlyInterestRate // type // default is SAVINGS
+                Account.standardYearlyInterestRate // type // default is SAVINGS
         )
         // setters
         newAccount.owner = newOwner

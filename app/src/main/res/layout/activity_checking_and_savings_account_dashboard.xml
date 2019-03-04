@@ -6,151 +6,25 @@
     tools:context=".view.ActivitySavingsAndCheckingAccountDashboard"
     android:background="@drawable/rectangle_light_red_inside_border_black"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent">
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/cl_container_activity_dashboard">
-            <TextView
-                android:id="@+id/the_bank_page_title"
-                android:text="Savings and Checking"
-                android:textSize="15sp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:layout_margin="5sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/close"/>
-            <TextView
-                android:id="@+id/close"
-                android:text="X"
-                android:textSize="20sp"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:onClick="closeDashboardActivity"
-                android:background="@drawable/rectangle_button_red_inside_border_black"
-                android:layout_margin="5sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
-            <TextView
-                android:id="@+id/owner_checking_and_savings_account_info"
-                android:text="Bernardo Bernardinhio\nAccount created: 18:37 20sec\Checking: 2000€\Limit: -290€ \Savings: 1500.0€"
-                android:gravity="clip_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:padding="5sp"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="#000000"
-                app:layout_constraintTop_toBottomOf="@id/close"/>
-            <Button
-                android:id="@+id/get_balance"
-                android:text="Get Balance"
-                android:textAllCaps="false"
-                android:textSize="15sp"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="#000000"
-                android:layout_marginTop="10sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rectangle_white_inside_border_black"
-                app:layout_constraintTop_toBottomOf="@id/owner_checking_and_savings_account_info"/>
-            <Button
-                android:id="@+id/add_money"
-                android:text="Add Money"
-                android:textAllCaps="false"
-                android:textSize="15sp"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="#000000"
-                android:layout_marginTop="10sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rectangle_white_inside_border_black"
-                app:layout_constraintTop_toBottomOf="@id/get_balance"/>
-            <Button
-                android:id="@+id/withdraw_money"
-                android:text="Withdraw Money"
-                android:textAllCaps="false"
-                android:textSize="15sp"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="#000000"
-                android:layout_marginTop="10sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rectangle_white_inside_border_black"
-                app:layout_constraintTop_toBottomOf="@id/add_money"/>
-            <Button
-                android:id="@+id/transfer_money"
-                android:text="Transfer Money to someone"
-                android:textAllCaps="false"
-                android:textSize="15sp"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="#000000"
-                android:layout_marginTop="10sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rectangle_white_inside_border_black"
-                app:layout_constraintTop_toBottomOf="@id/withdraw_money"/>
-            <Button
-                android:id="@+id/convert_money"
-                android:text="Convert Money"
-                android:textAllCaps="false"
-                android:textSize="15sp"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="#000000"
-                android:layout_marginTop="10sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rectangle_white_inside_border_black"
-                app:layout_constraintTop_toBottomOf="@id/transfer_money"/>
-            <Button
-                android:id="@+id/get_benefits_per"
-                android:text="Benefits per year / month"
-                android:textAllCaps="false"
-                android:textSize="15sp"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="#000000"
-                android:layout_marginTop="10sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rectangle_white_inside_border_black"
-                app:layout_constraintTop_toBottomOf="@id/convert_money"/>
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/checking_account_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10sp"
-                app:layout_constraintTop_toBottomOf="@id/get_benefits_per"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="10sp">
-                <EditText
-                    android:id="@+id/input1"
-                    android:hint="Enter amount..."
-                    android:textColorHint="#3D00A5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed"
-                    android:textColor="#000000"
-                    android:background="@drawable/rectangle_white_transparent_inside_border_black"
-                    app:layout_constraintTop_toTopOf="parent"/>
-                <EditText
-                    android:id="@+id/result1"
-                    android:hint="Results..."
-                    android:textColorHint="#3D00A5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed"
-                    android:textColor="#000000"
-                    app:layout_constraintTop_toBottomOf="@id/input1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginTop="10sp"
-                    android:layout_marginBottom="10sp"
-                    android:background="@drawable/rectangle_white_transparent_inside_border_black" />
-            </android.support.constraint.ConstraintLayout>
-        </android.support.constraint.ConstraintLayout>
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/cl_container_activity_dashboard">
+
+        <include layout="@layout/snippet_header_account_dashboard" />
+        <include layout="@layout/snippet_account_info" />
+        <include layout="@layout/snippet_dashboard_feedback" />
+        <include layout="@layout/snippet_get_balance_account_dashboard" />
+        <include layout="@layout/snippet_add_money_account_dashboard" />
+        <include layout="@layout/snippet_withdraw_money_account_dashboard" />
+        <include layout="@layout/snippet_transfer_money_to_someone" />
+        <include layout="@layout/snippet_convert_money_from_my_checking_to_my_savings" />
+        <include layout="@layout/snippet_convert_money_from_my_savings_to_my_checking" />
+        <include layout="@layout/snippet_get_details_of_yearly_interest_rate" />
+        <include layout="@layout/snippet_get_overdraft_status" />
+        <include layout="@layout/snippet_get_benefit_from_interest" />
+
+    </LinearLayout>
     </ScrollView>

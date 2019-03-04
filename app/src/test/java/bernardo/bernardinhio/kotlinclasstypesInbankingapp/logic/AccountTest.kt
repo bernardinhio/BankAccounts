@@ -1,7 +1,6 @@
 package bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic
 
 import org.junit.Assert.*
-import java.sql.Timestamp
 
 class AccountTest{
 
@@ -14,19 +13,18 @@ class AccountTest{
     }
 
 
-    // getInterestRatePerYear
+    // getDetailsOfYearlyInterestRate
 
     @org.junit.Test
-    fun test_getInterestRatePerYear(){
+    fun test_findDetailsYearlyInterestRate(){ // from enum
         val checkingAccount = CheckingAccount()
 
-        val interestGot = checkingAccount.getInterestRatePerYear()
-        val interestExpected = Account.yearlyInterestRate
+        // in real co,text we don't know which instance of the enum it is but we have just for ex: 3.23
+        val aDoubleValueInterestRateExpected = YearlyInterestRatePerSalaryRange.INTEREST_3_POINT_23.yearlyRate
+        val pairInfoGot : Pair<Double, Double> = YearlyInterestRatePerSalaryRange.findDetailsYearlyInterestRate(aDoubleValueInterestRateExpected)
+        assertEquals(aDoubleValueInterestRateExpected.toString(), pairInfoGot.first.toString())
 
-        assertEquals(interestExpected.toString(), interestGot.toString())
-
-        val categoryGot = InterestRatePerYearForAmount.values().forEach { if (it.interestRate.equals(interestGot)) it.amountMore }
-        val categoryExpected = InterestRatePerYearForAmount.values().forEach { if (it.interestRate.equals(interestExpected)) it.amountMore }
-        assertEquals(categoryExpected.toString(), categoryGot.toString())
+        val aDoubleValueMonthlySalaryExpected = YearlyInterestRatePerSalaryRange.INTEREST_3_POINT_23.monthlySalaryLessThan
+        assertEquals(aDoubleValueMonthlySalaryExpected.toString(), pairInfoGot.second.toString())
     }
 }

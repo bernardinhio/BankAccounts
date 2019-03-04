@@ -57,7 +57,7 @@ class FragmentCreateAccount : Fragment(){
 
     private fun setUiDefaultValues() {
         etOverdraftLimit.setText(OverdraftLimitType.LIMIT_1000.limit.toString())
-        etYearlyInterestRate.setText(Account.yearlyInterestRate.toString())
+        etYearlyInterestRate.setText(Account.standardYearlyInterestRate.toString())
     }
 
     private fun setRadioGroupCheckedListener() {

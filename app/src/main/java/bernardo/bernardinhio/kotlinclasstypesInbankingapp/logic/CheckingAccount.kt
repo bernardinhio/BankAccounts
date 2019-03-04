@@ -14,7 +14,7 @@ package bernardo.bernardinhio.kotlinclasstypesInbankingapp.logic
  */
 class CheckingAccount(
         var checkingBalance: Double = 0.toDouble(),
-        var overdraftLimit: Double = 0.toDouble(),
+        var overdraftLimit: Double = 0.toDouble(), // when openeing an account, it's 0.0
         var remainingOverdraft: Double = 0.toDouble(),
         override var type: AccountType = AccountType.CHECKING, // used for constructor when creating an account having 2 types
         var savingsAccount : SavingsAccount? = null
@@ -47,19 +47,27 @@ class CheckingAccount(
         }
     }
 
-    override fun addMoney(money : Double, toTypeIfSecondAccount : AccountType){
+    override fun addMoney(money : Double, toTypeIfSecondAccount : AccountType) : Boolean{
+        var isAdded = false
         if (type.equals(AccountType.CHECKING)) {
-            if (toTypeIfSecondAccount.equals(AccountType.CHECKING))
+            if (toTypeIfSecondAccount.equals(AccountType.CHECKING)) {
                 checkingBalance += money
+                isAdded = true
+            }
             else if (toTypeIfSecondAccount.equals(AccountType.SAVINGS))
                 println("You account is Checking can't add to Savings")
         }
         else if (type.equals(AccountType.CHECKING_AND_SAVINGS)){
-            if (toTypeIfSecondAccount.equals(AccountType.CHECKING))
+            if (toTypeIfSecondAccount.equals(AccountType.CHECKING)) {
                 checkingBalance += money
-            else if (toTypeIfSecondAccount.equals(AccountType.SAVINGS))
+                isAdded = true
+            }
+            else if (toTypeIfSecondAccount.equals(AccountType.SAVINGS)) {
                 savingsAccount?.savingsBalance = money + savingsAccount?.savingsBalance!!
+                isAdded = true
+            }
         }
+        return isAdded
     }
 
     override fun withdrawMoney(money : Double, fromTypeIfSecondAccount : AccountType): Boolean {
@@ -235,5 +243,11 @@ class CheckingAccount(
 
     override fun convertMoneyFromMySavingsToMyChecking(money : Double) : Boolean {
         return savingsAccount?.convertMoneyFromMySavingsToMyChecking(money)!!
+    }
+
+    fun getOverdraftStatus() : String {
+        val overdraftStatus = "You still can withdraw $remainingOverdraft from your checking, your limit was $overdraftLimit"
+        println(overdraftStatus)
+        return overdraftStatus
     }
 }

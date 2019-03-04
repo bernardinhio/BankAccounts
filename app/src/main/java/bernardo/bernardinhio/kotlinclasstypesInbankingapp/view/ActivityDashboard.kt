@@ -2,12 +2,12 @@ package bernardo.bernardinhio.kotlinclasstypesInbankingapp.view
 
 import android.app.AlertDialog
 import android.graphics.Point
-import android.support.constraint.ConstraintLayout
 import android.support.v4.app.FragmentActivity
 import android.view.View
+import android.widget.LinearLayout
 import bernardo.bernardinhio.kotlinclasstypesInbankingapp.R
 
-open class ActivityDashboard : FragmentActivity(){ // should be FragmentActivity to allow floating popop effect
+open class ActivityDashboard  : FragmentActivity(){ // should be FragmentActivity to allow floating popop effect
 
     // common to all dashboard activities
     protected fun setActivityDimensions(){
@@ -18,7 +18,7 @@ open class ActivityDashboard : FragmentActivity(){ // should be FragmentActivity
         val screenHeight = point.y
 
         val distanceToDeduce = (screenWidth * 0.17).toInt()
-        val activityContainerLayoutParams = findViewById<ConstraintLayout>(R.id.cl_container_activity_dashboard).layoutParams
+        val activityContainerLayoutParams = findViewById<LinearLayout>(R.id.cl_container_activity_dashboard).layoutParams
         activityContainerLayoutParams.width = screenWidth - distanceToDeduce
         activityContainerLayoutParams.height = screenHeight - distanceToDeduce
     }

@@ -12,9 +12,9 @@ abstract class Account(
 
     companion object {
 
-        var yearlyInterestRate : Double = InterestRatePerYearForAmount.INTEREST_3_POINT_23.interestRate
+        var standardYearlyInterestRate : Double = YearlyInterestRatePerSalaryRange.INTEREST_3_POINT_23.yearlyRate
 
-        // format  Feb 28, 2019 at 18:36: 27sec
+        // format : Feb 28, 2019 at 18:36: 27sec
         fun getFormattedTime(timeStamp: Long): String {
             try {
                 val simpleDateFormat = SimpleDateFormat("HH:mm ss'sec'", Locale.GERMANY)
@@ -28,20 +28,23 @@ abstract class Account(
 
     // must have for: CHECKING, SAVINGS and CHECKING_AND_SAVINGS
     abstract fun getBalance() : Double
-    abstract fun addMoney(money : Double, toTypeIfSecondAccount : AccountType)
+    abstract fun addMoney(money : Double, toTypeIfSecondAccount : AccountType) : Boolean
     abstract fun withdrawMoney(money : Double, fromTypeIfSecondAccount : AccountType) : Boolean
     abstract fun transferMoneyToSomeone(money : Double, fromTypeIfSecondAccount : AccountType, receiverAccount : Account) : Boolean
     abstract fun convertMoneyFromMyCheckingToMySavings(money : Double) : Boolean
     abstract fun convertMoneyFromMySavingsToMyChecking(money : Double) : Boolean
 
-    // inherited by all, having implementation
-    fun getInterestRatePerYear() : Double{
-        val bankStandardInterest = Account.yearlyInterestRate
-        val category = InterestRatePerYearForAmount.values().forEach { if (it.interestRate.equals(bankStandardInterest)) it.amountMore }
-
-        print("Standard Interest per year: $bankStandardInterest for amount more than: $category")
-        return bankStandardInterest
+    /**
+     * contrary to the one inside SavingsAccount class which will return
+     * info about the specific interest-rate set on the creation
+     * of the object SavingsAccount, here will return the standard one
+     * this is inherited by all subclasses, for ex CheckingAccount, BUT
+     * overridden in the SavingsAccount
+     */
+    open fun getDetailsOfYearlyInterestRate() : Pair<Double, Double> {
+        return YearlyInterestRatePerSalaryRange.findDetailsYearlyInterestRate(Account.standardYearlyInterestRate)
     }
+
 }
 
 enum class AccountType(val type : String){
@@ -52,7 +55,7 @@ enum class AccountType(val type : String){
 }
 
 // enum class allowing choosing overdraft limit according to salary range
-enum class OverdraftLimitType(val limit : Double, val salaryLess : Double){
+enum class OverdraftLimitType(val limit : Double, val monthlySalaryLessThan : Double){
     LIMIT_1000(1000.0, 1000.0),
     LIMIT_1600(1600.0, 2350.0),
     LIMIT_2000(2000.0, 3500.0),
@@ -62,12 +65,34 @@ enum class OverdraftLimitType(val limit : Double, val salaryLess : Double){
     UNDEFINED(0.0, 0.0)
 }
 
-enum class InterestRatePerYearForAmount(val interestRate : Double, val amountMore : Double){
+enum class YearlyInterestRatePerSalaryRange(val yearlyRate : Double, val monthlySalaryLessThan : Double){
     INTEREST_3_POINT_23(3.23, 9000.0),
     INTEREST_4_POINT_02(4.02, 25000.0),
     INTEREST_5_POINT_57(5.57, 43000.0),
     INTEREST_6_POINT_15(6.15, 65000.0),
     UNDEFINED(0.0, 0.0)
+    ; // only place in Kotlin we should use " ; "
+
+    // call by individual enum objects
+    fun findDetailsYearlyInterestRate() : Double{
+        print("Monthly salary less than: $yearlyRate for Interest rate per year: $yearlyRate")
+        return yearlyRate
+    }
+
+    // called when we just know the value of interest not the Object
+    companion object { // static
+
+        fun findDetailsYearlyInterestRate(yearlyInterestRateSearched : Double) : Pair<Double, Double>{
+            val arrayAllInstances : Array<YearlyInterestRatePerSalaryRange> = YearlyInterestRatePerSalaryRange.values()
+            var  monthlySalaryLessThanSearched : Double = 0.toDouble()
+            arrayAllInstances.forEach {
+                if (it.yearlyRate.equals(yearlyInterestRateSearched)){
+                    monthlySalaryLessThanSearched = it.monthlySalaryLessThan
+                }}
+            print("Monthly salary less than: $monthlySalaryLessThanSearched for Interest rate per year: $yearlyInterestRateSearched")
+            return Pair<Double, Double>(yearlyInterestRateSearched, monthlySalaryLessThanSearched)
+        }
+    }
 }
 
 enum class PeriodOfInterest(val period : String){

@@ -46,19 +46,27 @@ class SavingsAccount(
         }
     }
 
-    override fun addMoney(money : Double, toTypeIfSecondAccount : AccountType){
+    override fun addMoney(money : Double, toTypeIfSecondAccount : AccountType) : Boolean{
+        var isAdded = false
         if (type.equals(AccountType.SAVINGS)){
-            if (toTypeIfSecondAccount.equals(AccountType.SAVINGS))
+            if (toTypeIfSecondAccount.equals(AccountType.SAVINGS)) {
                 savingsBalance += money
+                isAdded = true
+            }
             else if (toTypeIfSecondAccount.equals(AccountType.SAVINGS))
                 println("You account is Savings can't add to Checking")
         }
         else if (type.equals(AccountType.CHECKING_AND_SAVINGS)){
-            if (toTypeIfSecondAccount.equals(AccountType.SAVINGS))
+            if (toTypeIfSecondAccount.equals(AccountType.SAVINGS)) {
                 savingsBalance += money
-            else if (toTypeIfSecondAccount.equals(AccountType.CHECKING))
+                isAdded = true
+            }
+            else if (toTypeIfSecondAccount.equals(AccountType.CHECKING)) {
                 checkingAccount?.checkingBalance = money + checkingAccount?.checkingBalance!!
+                isAdded = true
+            }
         }
+        return isAdded
     }
 
     override fun withdrawMoney(money : Double, fromTypeIfSecondAccount : AccountType): Boolean {
@@ -239,6 +247,13 @@ class SavingsAccount(
 
     override fun convertMoneyFromMyCheckingToMySavings(money : Double) : Boolean {
         return checkingAccount?.convertMoneyFromMyCheckingToMySavings(money)!!
+    }
+
+    // override non-abstract open fun
+    // according to the specific interestRate set on the creation,
+    // and not necessary the standard one
+    override fun getDetailsOfYearlyInterestRate() : Pair<Double, Double> {
+        return YearlyInterestRatePerSalaryRange.findDetailsYearlyInterestRate(yearlyInterestRate)
     }
 
     fun getBenefitFromInterest(perPeriod : PeriodOfInterest) : Double{
