@@ -11,7 +11,7 @@ The logic of the Accounts system and the operations methods are all written and 
 
 The following is a brief listing of the methods I wrote to deal with the different sorts of Accounts:
 
-  --- common -- abstract
+     --- Common -- abstract
      getBalance
      addMoney
      withdrawMoney
@@ -19,15 +19,15 @@ The following is a brief listing of the methods I wrote to deal with the differe
      convertMoneyFromMyCheckingToMySavings
      convertMoneyFromMySavingsToMyChecking
 
-     --- common -- Non-abstract
+    --- Common -- Non-abstract
     --> not overriden in CheckingAccount
     --> IS overriden in SavingsAccount
     getDetailsOfYearlyInterestRate
 
-    ----- specific method > CheckingAccount
+    --- Specific method > CheckingAccount
      getOverdraftStatus
 
-     ----- specific method > SavingsAccount
+     ---  Specific method > SavingsAccount
      getBenefitFromInterest
 
 This App demonstrates how these different types of bank accounts are created and how they interact with each other’s. I created an abstract superclass “Account” that offers some properties inherited by its concrete subclasses CheckingAccount and SavingsAccount who have their own extra properties. Also the same for the methods, the abstract class offers some methods implemented that are inherited by the subclasses “CheckingAccount” and “SavingsAccount”. Who themselves have their own specialized methods.
