@@ -1,13 +1,13 @@
-This App shows how we can benefit from the concept of abstract classes with Kotlin. I developed the program about bank accounts and I created different types that can also change the type if they are upgraded.
+This App shows how we can benefit from the concept of abstract classes with Kotlin. I developed the program about bank accounts and I created different subclasses that can also convert the type if they are upgraded.
 
 I tried to make a nice UI to simulate the creation of 3 sorts of Accounts:
-Checking account
-Savings account 
-Checking-Savings account
+- Checking account
+- Savings account 
+- Checking-Savings account
 
-I simulate the creation of Owner and account and then adding data to a main page where the container is an account that will “shake” or make animation when it is created. I tried to make a reactive approach for the programing by hiding / unhiding data fields, also by make floating activities that act as a popup but are in fact activities when we can write complex code. All this is done with Kotlin which is my preferable language at the present.
+I simulate the creation of owner and creation of account and then adding data to a main page where the container is one of the 3 types of accounts that will “shake” or make animation when it is created. I tried to make a reactive approach for the programing by hiding / unhiding data fields, also by making a floating activities that act as a popup but are in fact activities when we can write complex code. All this is done with Kotlin which is my preferable language at the present.
 
-The logic of the Accounts system and the operations methods are all written and tested which a Unit test that I created. I started using this logic in one of the “Dashboard” activities that represents the CheckingAccount, but didn’t finish yet implementing all the App dashboards.
+The logic of the Accounts system and the operations methods are all written and tested which a Unit-Test that I created. I started using this logic in one of the “Dashboard” activities that represents the CheckingAccount, but didn’t finish yet implementing all the App dashboards.
 
 The following is a brief listing of the methods I wrote to deal with the different sorts of Accounts:
 
@@ -49,16 +49,20 @@ The abstract superclass “Account” offers one implemented method that has the
 
 getDetailsOfYearlyInterestRate ()
 
-this is needed when any instance of the subclass CheckingAccount wants to convert its type to “Savings and Checking” and needs that information that is global for all kinds of accounts. Also this information is needed by any instance of the subclass “SavingsAccount” if the client needs to know the interest rate of the bank.
+This is needed when any instance of the subclass CheckingAccount wants to convert its type to “Savings and Checking” and needs that information that is global for all kinds of accounts. Also this information is needed by any instance of the subclass “SavingsAccount” if the client needs to know the interest rate of the bank.
 
 Each of the subclasses “CheckingAccount” and “SavingsAccount” can convert money from its checkingBalance to its savingsBalance and vice versa, ONLY if that account is of type “Checking and Savings” at the same time
 
-I created many enum classes in Kotlin, one of the strong concepts is to add methods to any or all enum Items, or even a static method to the enu class itself.
+I created many enum classes in Kotlin, one of the strong concepts is to add methods to any or all enum Items, or even a static method to the enum class itself.
 
 In Kotlin we can put so many classes together in one file on the root, so I put all the enum classes related to Account inside the Account abstract class.
 
 I used many powerful concepts of Kotlin such as primary constructors that have the fields initialized by default values which will allow calling all the combination of constructor’s whether by number of parameters or the order of types of parameters.
 
+
+--------- To be done next and not done yet ---------
+
+I didn’t develop yet all the UI about the 3 types of Activity dashboards (CheckingAccount, SavingsAccount and CheckingAndSavingsAccount. These 3 Dashboard activities are supposed to do almost the same things except few small things that they are not authorized to do such as SavingsAccount cannot withdraw money up to an OverDraftLimit and a CheckingAccount cannot have a benefit from an Interest rate. However the Logic of these operations are already implemented in their respective model classes and also tested with Unit Test. So now it is just about calling these methods from activities. I will do this next because I thought I might create one only Activity (Refactoring) for all the 3 types of accounts so I save code repetition.
 
 --------- Some screenshots ---------
 
